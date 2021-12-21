@@ -29,17 +29,25 @@ public class Sqrts {
     }
 
     private int simpleSqrt(int x) {
-        int left = 0, right = x, ans = -1;
+        if (x == 0) {
+            return 0;
+        }
+        if (x < 4) {
+            return 1;
+        }
+        int left = 0;
+        int right = x / 2;
+        int result = -1;
         while (left <= right) {
             int mid = (left + right) >> 1;
-            if (mid * mid <= x) {
-                ans = mid;
+            if (mid <= x / mid) {
+                result = mid;
                 left = mid + 1;
             } else {
                 right = mid - 1;
             }
         }
-        return ans;
+        return result;
     }
 
     @Test
