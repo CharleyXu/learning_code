@@ -4,10 +4,7 @@ import com.xu.algorithm.structure.stack.Stack;
 import com.xu.algorithm.structure.tree.TreeNode;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author CharleyXu Created on 2019/3/25.
@@ -28,6 +25,46 @@ public class Traversal {
         System.out.println(head.val);
         preOrderRecur(head.left);
         preOrderRecur(head.right);
+    }
+
+    @Test
+    public void preorderTraversal() {
+        List<Integer> integers = postorderTraversal(BaseTree.root);
+        System.out.println(integers);
+    }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> nodeList = new ArrayList<>();
+        traversal(nodeList, root);
+        return nodeList;
+    }
+
+    private void traversal(List<Integer> nodeList, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        traversal(nodeList, root.left);
+        traversal(nodeList, root.right);
+        nodeList.add(root.val);
+
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        while (!deque.isEmpty() || root != null) {
+            while (root != null) {
+                deque.push(root);
+                root = root.left;
+            }
+            root = deque.pop();
+            res.add(root.val);
+            root = root.right;
+        }
+        return res;
     }
 
     /**
@@ -206,6 +243,32 @@ public class Traversal {
         return list;
     }
 
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null){
+            return res;
+        }
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int count = queue.size();
+            List<Integer> nodeList = new ArrayList<>();
+            while(count>0){
+                TreeNode treeNode = queue.poll();
+                nodeList.add(treeNode.val);
+                if(treeNode.left!=null){
+                    queue.add(treeNode.left);
+                }
+                if(treeNode.right!=null){
+                    queue.add(treeNode.right);
+                }
+                count--;
+            }
+            res.add(nodeList);
+        }
+        return res;
+    }
+
     @Test
     public void preOrder() {
         preOrder(BaseTree.root);
@@ -243,7 +306,7 @@ public class Traversal {
 
     @Test
     public void levelOrderTest() {
-        System.out.println(levelOrder(BaseTree.root));
+        System.out.println(levelOrder2(BaseTree.root));
     }
 
 }

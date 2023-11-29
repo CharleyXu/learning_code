@@ -30,7 +30,7 @@ import java.util.Queue;
  * <p>
  * 如此交替装元素，一个作为发射枪发射子弹，另一个作为容器装这个发射枪的发出的子弹。
  */
-public class TwoQueueAchieveStack {
+public class TwoQueueStack {
 
     private Queue<Integer> queue1 = new LinkedList<>();
 

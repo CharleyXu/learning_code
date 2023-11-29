@@ -21,8 +21,7 @@ public class MyLRUCache {
         tail.prev = head;
     }
 
-    private Map<Integer, LinkedNode> cache =
-            new HashMap<>();
+    private Map<Integer, LinkedNode> cache = new HashMap<>();
     private int size;
     private int capacity;
     private LinkedNode head, tail;

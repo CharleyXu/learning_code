@@ -1,5 +1,7 @@
-package com.xu.algorithm.structure.tree;
+package com.xu.algorithm.structure.tree.bst;
 
+
+import com.xu.algorithm.structure.tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

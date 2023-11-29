@@ -1,9 +1,9 @@
-package com.xu.algorithm.structure.stack;
+package com.xu.algorithm.structure.stack.monotone;
+
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Stack;
-
-import org.junit.Test;
 
 /**
  * @author CharleyXu Created on 2019/3/21.
@@ -36,7 +36,6 @@ public class MonotoneStack {
             return null;
         }
         int[] result = new int[arr.length];
-        Arrays.fill(result, -1);
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < arr.length; i++) {
             while (!stack.empty() && arr[stack.peek()] < arr[i]) {

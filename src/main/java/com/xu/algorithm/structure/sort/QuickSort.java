@@ -15,52 +15,6 @@ import org.junit.Test;
  */
 public class QuickSort extends BaseSort {
 
-    public void quickSort(int[] arr) {
-        if (arr == null || arr.length == 0 || arr.length == 1) {
-            return;
-        }
-        quickSort(arr, 0, arr.length - 1);
-    }
-
-    private void quickSort(int[] arr, int low, int high) {
-        if (low >= high) {
-            return;
-        }
-        int i = partition(arr, low, high);
-        //基准左边再做排序，直到左边剩下一个数(递归出口)
-        quickSort(arr, low, i - 1);
-        //右边
-        quickSort(arr, i + 1, high);
-    }
-
-    private int partition(int[] arr, int low, int high) {
-        //挖坑1,保存基准值
-        int pivot = arr[low];
-        //左右两端进行扫描
-        while (low < high) {
-            //坑2：从后向前找到比基准小的元素，插入到基准位置坑1中
-            while (low < high && arr[high] >= pivot) {
-                high--;
-            }
-            arr[low] = arr[high];
-            //坑3：从前往后找到比基准大的元素，放到刚才挖的坑2中
-            while (low < high && arr[low] <= pivot) {
-                low++;
-            }
-            arr[high] = arr[low];
-        }
-        //基准值填补到坑3中，准备分治递归快排
-        arr[low] = pivot;
-        return low;
-    }
-
-    @Test
-    public void quickSortTest() {
-        int[] arr = new int[]{24, 17, 87, 35, 19, 7, 85, 61, 47, 50};
-        quickSort(arr);
-        printArr(arr);
-    }
-
     @Test
     public void quicksSortTest() {
         int[] arr = new int[]{24, 17, 87, 35, 19, 7, 85, 61, 47, 50};
@@ -68,42 +22,60 @@ public class QuickSort extends BaseSort {
         printArr(arr);
     }
 
+    /**
+     * 1. 首先，对原数组执行一次“哨兵划分”，得到未排序的左子数组和右子数组。
+     * <p>
+     * 2. 然后，对左子数组和右子数组分别递归执行“哨兵划分”。
+     * <p>
+     * 3. 持续递归，直至子数组长度为 1 时终止，从而完成整个数组的排序。
+     */
     public void quicks(int[] arr) {
         if (arr == null || arr.length <= 1) {
             return;
         }
-        quicks(arr, 0, arr.length - 1);
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    /* 快速排序(尾递归优化) */
+    public void quickSort(int[] nums, int left, int right) {
+        while (left < right) {
+            int pivot = partitions(nums, left, right);
+            // 对两个子数组中较短的那个执行快排
+            if (pivot - left < right - pivot) {
+                quickSort(nums, left, pivot - 1); // 递归排序左子数组
+                left = pivot + 1; // 剩余未排序区间为 [pivot + 1, right
+            } else {
+                quickSort(nums, pivot + 1, right); // 递归排序右子数组
+                right = pivot - 1; // 剩余未排序区间为 [left, pivot - 1]
+            }
+
+        }
     }
 
     private void quicks(int[] arr, int low, int high) {
         if (low >= high) {
             return;
         }
-        int partitions = partitions(arr, low, high);
-        quicks(arr, low, partitions - 1);
-        quicks(arr, partitions + 1, high);
+        int pivot = partitions(arr, low, high);
+        quicks(arr, low, pivot - 1);
+        quicks(arr, pivot + 1, high);
     }
 
-    /**
-     * @return 轴值 位置
-     */
-    private int partitions(int[] arr, int low, int high) {
-        // 1
-        int pivot = arr[low];
-        while (low < high) {
-            // 2
-            while (low < high && arr[high] >= pivot) {
-                high--;
+    /* 哨兵划分 */
+    public int partitions(int[] nums, int left, int right) {
+        // 以 nums[left] 作为基准数
+        int i = left, j = right;
+        while (i < j) {
+            while (i < j && nums[j] >= nums[left]) {
+                j--; // 从右向左找首个小于基准数的元素
             }
-            arr[low] = arr[high];
-            // 3
-            while (low < high && arr[low] <= pivot) {
-                low++;
+            while (i < j && nums[i] <= nums[left]) {
+                i++; // 从左向右找首个大于基准数的元素
             }
-            arr[high] = arr[low];
+            swap(nums, i, j); // 交换这两个元素
         }
-        arr[low] = pivot;
-        return low;
+        swap(nums, i, left); // 将基准数交换至两子数组的分界线
+        return i; // 返回基准数的索引
     }
 
 }
