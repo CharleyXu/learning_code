@@ -7,12 +7,16 @@ import java.util.PriorityQueue;
 /**
  * Created by CharleyXu on 2023/11/29
  */
-public class MergeKLists{
+public class MergeKLists {
 
     public ListNode mergeKLists(ListNode[] lists) {
         return merge(lists, 0, lists.length - 1);
     }
 
+    /**
+     * 时间复杂度: O(kn×logk)
+     * 空间复杂度: 递归会使用到 O(logk) 空间代价的栈空间
+     */
     public ListNode merge(ListNode[] lists, int l, int r) {
         if (l == r) {
             return lists[l];
@@ -36,18 +40,18 @@ public class MergeKLists{
             return a != null ? a : b;
         }
         ListNode head = new ListNode(0);
-        ListNode tail = head, aPtr = a, bPtr = b;
+        ListNode curr = head, aPtr = a, bPtr = b;
         while (aPtr != null && bPtr != null) {
             if (aPtr.val < bPtr.val) {
-                tail.next = aPtr;
+                curr.next = aPtr;
                 aPtr = aPtr.next;
             } else {
-                tail.next = bPtr;
+                curr.next = bPtr;
                 bPtr = bPtr.next;
             }
-            tail = tail.next;
+            curr = curr.next;
         }
-        tail.next = (aPtr != null ? aPtr : bPtr);
+        curr.next = (aPtr != null ? aPtr : bPtr);
         return head.next;
     }
 
