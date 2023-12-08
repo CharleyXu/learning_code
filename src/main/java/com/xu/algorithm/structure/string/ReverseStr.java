@@ -3,7 +3,7 @@ package com.xu.algorithm.structure.string;
 /**
  * Created by CharleyXu on 2020-06-18
  * <p>
- * 给定一个字符串 s 和一个整数 k，你需要对从字符串开头算起的每隔 2k 个字符的前 k 个字符进行反转。
+ * 给定一个字符串 s 和一个整数 k，你需要对从字符串开头算起的每隔2k 个字符的前 k 个字符进行反转。
  * <p>
  * 如果剩余字符少于 k 个，则将剩余字符全部反转。
  * <p>

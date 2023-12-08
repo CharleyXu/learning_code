@@ -18,7 +18,7 @@ public class FindMidNode extends BaseLinkedList {
     if (head == null || head.next == null) {
       return head;
     }
-    ListNode fast = head;
+    ListNode fast = head.next;
     ListNode slow = head;
     while (fast != null && fast.next != null) {
       fast = fast.next.next;

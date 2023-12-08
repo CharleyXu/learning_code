@@ -1,7 +1,7 @@
 package com.xu.algorithm.structure.stack.monotone;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * Created by CharleyXu on 2023/11/29
@@ -11,8 +11,11 @@ import java.util.LinkedList;
 public class Trap {
 
     //单调递减栈法：按行计算
+    // 时间复杂度：O(n)，其中 n 是数组 height 的长度。从 0 到 n−1 的每个下标最多只会入栈和出栈各一次。
+
+    // 空间复杂度：O(n)，其中 nnn 是数组 height 的长度。空间复杂度主要取决于栈空间，栈的大小不会超过 n
     public int trap(int[] height) {
-        Deque<Integer> stack = new LinkedList<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         int sum = 0;
         for (int i = 0; i < height.length; i++) {//单调递减栈，从左往右遍历，按行计算雨水
             while (!stack.isEmpty() && height[i] > height[stack.peek()]) { //出现凹槽

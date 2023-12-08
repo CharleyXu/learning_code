@@ -1,4 +1,4 @@
-package com.xu.algorithm.other;
+package com.xu.algorithm.structure.hash;
 
 import java.util.HashMap;
 import java.util.Map;

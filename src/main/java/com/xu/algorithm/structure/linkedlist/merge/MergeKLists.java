@@ -58,7 +58,7 @@ public class MergeKLists {
     /**
      * 使用优先级队列
      */
-    static class Status implements Comparable<Status> {
+    static class Status {
         int val;
         ListNode ptr;
 
@@ -66,13 +66,9 @@ public class MergeKLists {
             this.val = val;
             this.ptr = ptr;
         }
-
-        public int compareTo(Status status2) {
-            return this.val - status2.val;
-        }
     }
 
-    PriorityQueue<Status> queue = new PriorityQueue<Status>();
+    PriorityQueue<Status> queue = new PriorityQueue<Status>((v1, v2) -> v1.val - v2.val);
 
     public ListNode mergeKLists2(ListNode[] lists) {
         for (ListNode node : lists) {

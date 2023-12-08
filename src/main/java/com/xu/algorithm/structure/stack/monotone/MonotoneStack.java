@@ -2,8 +2,9 @@ package com.xu.algorithm.structure.stack.monotone;
 
 import org.junit.Test;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.Deque;
 
 /**
  * @author CharleyXu Created on 2019/3/21.
@@ -30,41 +31,25 @@ public class MonotoneStack {
      * 和前后元素之间的大小关系有关系的话，比如 要找比某个元素大的元素
      * <p>
      * 前后的bar的高低影响了最终矩形的计算
+     * <p>
+     * * input: 5,3,1,2,4
+     * * <p>
+     * * return: -1 3 1 1 -1
      */
     private int[] findLarger(int[] arr) {
         if (arr == null) {
             return null;
         }
         int[] result = new int[arr.length];
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < arr.length; i++) {
-            while (!stack.empty() && arr[stack.peek()] < arr[i]) {
+            result[i] = -1;
+            while (!stack.isEmpty() && arr[stack.peek()] < arr[i]) {
                 result[stack.peek()] = i - stack.peek();
                 stack.pop();
             }
             stack.push(i);
         }
-        return result;
-    }
-
-    /**
-     * 暴力破解 O(2)
-     */
-    private int[] findLargerO2(int[] arr) {
-        if (arr == null) {
-            return null;
-        }
-        int[] result = new int[arr.length];
-        for (int i = 0; i < arr.length - 1; i++) {
-            result[i] = -1;
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] > arr[i]) {
-                    result[i] = j - i;
-                    break;
-                }
-            }
-        }
-        result[arr.length - 1] = -1;
         return result;
     }
 
@@ -80,7 +65,5 @@ public class MonotoneStack {
         int[] arr = new int[]{5, 3, 1, 2, 4};
         int[] larger = findLarger(arr);
         System.out.println(Arrays.toString(larger));
-        int[] largerO2 = findLargerO2(arr);
-        System.out.println(Arrays.toString(largerO2));
     }
 }

@@ -1,4 +1,4 @@
-package com.xu.algorithm.structure.array;
+package com.xu.algorithm.structure.queue;
 
 
 import org.junit.Test;
