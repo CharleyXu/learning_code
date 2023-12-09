@@ -1,4 +1,4 @@
-package com.xu.algorithm.structure.sort;
+package com.xu.algorithm.sort;
 
 import java.util.Arrays;
 import org.junit.Test;

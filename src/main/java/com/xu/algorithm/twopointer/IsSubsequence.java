@@ -1,4 +1,4 @@
-package com.xu.algorithm.structure.twopointer;
+package com.xu.algorithm.twopointer;
 
 /**
  * Created by CharleyXu on 2020-06-17

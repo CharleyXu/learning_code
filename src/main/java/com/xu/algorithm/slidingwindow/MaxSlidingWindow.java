@@ -1,4 +1,4 @@
-package com.xu.algorithm.structure.slidingwindow;
+package com.xu.algorithm.slidingwindow;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

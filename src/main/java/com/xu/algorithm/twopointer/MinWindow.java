@@ -1,4 +1,4 @@
-package com.xu.algorithm.structure.twopointer;
+package com.xu.algorithm.twopointer;
 
 import java.util.HashMap;
 import java.util.Map;

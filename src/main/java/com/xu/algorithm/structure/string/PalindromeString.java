@@ -4,62 +4,45 @@ import org.junit.Test;
 
 /**
  * @author CharleyXu Created on 2019/3/17.
- *
+ * <p>
  * 回文字符串
  */
 public class PalindromeString {
 
-  /**
-   * 正则剔除+反转法
-   *
-   * 时间复杂度：O(n),空间复杂度：O(n)
-   */
-  public boolean isPalindromeByReverse(String s) {
-    if (checkFirst(s)) {
-      return false;
+    /**
+     * 筛选加判断，时间复杂度O(｜s｜)，｜s｜是字符串s的长度
+     * <p>
+     * 或者可以直接在原字符串上直接判断
+     */
+    public boolean isPalindromeByTwoPointer(String s) {
+        StringBuilder result = new StringBuilder();
+        int length = s.length();
+        for (int i = 0; i < length; i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                result.append(Character.toLowerCase(ch));
+            }
+        }
+        int n = result.length();
+        int left = 0, right = n - 1;
+        while (left < right) {
+            if (result.charAt(left) != result.charAt(right)) {
+                return false;
+            }
+            ++left;
+            --right;
+        }
+        return true;
     }
-    //  [^\\d^a-z^A-Z^] 等同于[^a-z^A-Z^0-9]
-    String result = s.replaceAll("[^a-z^A-Z^0-9]", "").toLowerCase();
-    String reverseString = new StringBuilder(result).reverse().toString();
-    return result.equals(reverseString);
-  }
 
-  /**
-   * 正则剔除+双指针
-   */
-  public boolean isPalindromeByTwoPointer(String s) {
-    if (checkFirst(s)) {
-      return false;
+    @Test
+    public void isPalindromeTest() {
+        //A man, a plan, a canal: Panama
+        //race a car
+        String string = "A man, a plan, a canal: Panama";
+        boolean palindromeByReverse = isPalindromeByTwoPointer(string);
+        System.out.println(palindromeByReverse);
     }
-    String result = s.replaceAll("[^a-z^A-Z^0-9]", "").toLowerCase();
-    int start = 0, end = result.length() - 1;
-    while (start < end) {
-      if (result.charAt(start) != result.charAt(end)) {
-        return false;
-      }
-      start++;
-      end--;
-    }
-    return true;
-  }
-
-  private boolean checkFirst(String s) {
-    if (s == null || s.isEmpty() || s.length() == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  @Test
-  public void isPalindromeTest() {
-    //A man, a plan, a canal: Panama
-    //race a car
-    String string = "A man, a plan, a canal: Panama";
-    boolean palindromeByReverse = isPalindromeByReverse(string);
-    boolean palindromeByTwoPointer = isPalindromeByTwoPointer(string);
-    System.out.println(palindromeByReverse);
-    System.out.println(palindromeByTwoPointer);
-  }
 
 
 }

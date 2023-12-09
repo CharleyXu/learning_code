@@ -1,5 +1,7 @@
 package com.xu.algorithm.structure.stack;
 
+import org.junit.Test;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -31,6 +33,49 @@ public class LongestValidParentheses {
             }
         }
         return res;
+    }
+
+    /**
+     * 使用两个计数器
+     */
+    public int longestValidParentheses2(String s) {
+        int left = 0, right = 0, maxlength = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            // 当 right计数器比 left计数器大时，我们将 left和 right 计数器同时变回 0
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * right);
+            } else if (right > left) {
+                left = right = 0;
+            }
+        }
+        left = right = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            // 当 left计数器比 right计数器大时，我们将 left和 right 计数器同时变回 0
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * left);
+            } else if (left > right) {
+                left = right = 0;
+            }
+        }
+        return maxlength;
+
+    }
+
+
+    @Test
+    public void test() {
+        System.out.println(longestValidParentheses("(()((()))"));
     }
 
 }
