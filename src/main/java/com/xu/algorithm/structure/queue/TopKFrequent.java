@@ -11,6 +11,10 @@ import java.util.PriorityQueue;
  */
 public class TopKFrequent {
 
+    /***
+     * 时间复杂度 O(n log k)
+     * 空间复杂度 O(n)
+     */
     public int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {

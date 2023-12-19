@@ -1,9 +1,9 @@
 package com.xu.algorithm.structure.array;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
 
 /**
  * @author CharleyXu Created on 2019/3/18.
@@ -28,24 +28,43 @@ public class FindDuplicates {
 
     /**
      * 在数组中找出所有重复出现的数，
+     *
      * <p>
      * 要求时间复杂度O(n),空间复杂度O(1)
+     * <p>
+     * 使用正负号作为标记
      */
-    public List<Integer> findDuplicates(int[] arr) {
-
-        if (arr == null || arr.length < 2) {
-            throw new IllegalArgumentException();
-        }
-        List<Integer> list = new ArrayList<>();
-        int len = arr.length;
-        for (int i = 0; i < len; i++) {
-            int index = Math.abs(arr[i]) - 1;
-            if (arr[index] < 0) {
-                list.add(Math.abs(index) + 1);
+    public List<Integer> findDuplicates(int[] nums) {
+        int n = nums.length;
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            int x = Math.abs(nums[i]);
+            if (nums[x - 1] > 0) {
+                nums[x - 1] = -nums[x - 1];
+            } else {
+                ans.add(x);
             }
-            arr[index] = -arr[index];
         }
-        return list;
+        return ans;
+    }
+
+    /**
+     * 将元素交换到对应的位置
+     */
+    public List<Integer> findDuplicates2(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; ++i) {
+            while (nums[i] != nums[nums[i] - 1]) {
+                swap(nums, i, nums[i]);
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] - 1 != i) {
+                // 说明位置i与位置nums[i]上的元素相同，直接返回该重复元素
+                res.add(nums[i]);
+            }
+        }
+        return res;
     }
 
     @Test
@@ -57,7 +76,7 @@ public class FindDuplicates {
 
 
     /**
-     * 查找数组中的重复元素
+     * 287. 寻找重复数
      * <p>
      * 给定一个长度为 n 的整数数组 nums，数组中所有的数字都在 0∼n−1 的范围内
      * <p>
@@ -80,7 +99,6 @@ public class FindDuplicates {
             }
         }
         return -1;
-
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -105,44 +123,24 @@ public class FindDuplicates {
      * 注意，此方法无法找出所有重复的元素
      */
     public int duplicateInArray2(int[] nums) {
-        if (nums == null || nums.length < 2) {
-            return 0;
-        }
-        int start = 1, end = nums.length - 1;
-        while (start <= end) {
-            int mid = start + ((end - start) >> 1);
-            int cnt = getCountRange(nums, start, mid);
-            if (start == end) {
-                if (cnt > 1) {
-                    // 找到重复的数字
-                    return start;
+        int n = nums.length;
+        int l = 1, r = n - 1, ans = -1;
+        while (l <= r) {
+            int mid = (l + r) >> 1;
+            int cnt = 0;
+            for (int i = 0; i < n; ++i) {
+                if (nums[i] <= mid) {
+                    cnt++;
                 }
-                break;
             }
-            if (cnt > mid - start + 1) {
-                end = mid;
+            if (cnt <= mid) {
+                l = mid + 1;
             } else {
-                start = mid + 1;
+                r = mid - 1;
+                ans = mid;
             }
         }
-        return 0;
+        return ans;
     }
 
-    /**
-     * 计算整个数组中有多少个数的取值在[from, to] 之间
-     *
-     * @param nums 数组
-     * @param from 左边界
-     * @param to   右边界
-     * @return 数量
-     */
-    private int getCountRange(int[] nums, int from, int to) {
-        int cnt = 0;
-        for (int e : nums) {
-            if (e >= from && e <= to) {
-                ++cnt;
-            }
-        }
-        return cnt;
-    }
 }

@@ -1,5 +1,7 @@
 package com.xu.algorithm.structure.string;
 
+import org.junit.Test;
+
 /**
  * Created by CharleyXu on 2020-06-18
  * <p>
@@ -17,10 +19,10 @@ public class ReverseStr {
      * 输出: "bacdfeg"
      */
     public String reverseStr(String s, int k) {
+        int n = s.length();
         char[] arr = s.toCharArray();
-        for (int left = 0, step = 2 * k; left < arr.length; left += step) {
-            int right = Math.min(arr.length - 1, left + k - 1);
-            swap(arr, left, right);
+        for (int i = 0; i < n; i += 2 * k) {
+            swap(arr, i, Math.min(i + k, n) - 1);
         }
         return new String(arr);
     }
@@ -32,6 +34,11 @@ public class ReverseStr {
             arr[left++] = arr[right];
             arr[right--] = swap;
         }
+    }
+
+    @Test
+    public void reverseStrTest() {
+        System.out.println(reverseStr("abcdefg", 2));
     }
 
 }

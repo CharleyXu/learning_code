@@ -6,6 +6,7 @@ import com.xu.algorithm.structure.linkedlist.ListNode;
  * Created by CharleyXu on 2023/12/8
  */
 public class SortList {
+
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
             return head;

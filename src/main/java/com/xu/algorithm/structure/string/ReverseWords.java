@@ -1,96 +1,133 @@
 package com.xu.algorithm.structure.string;
 
-import java.util.Arrays;
-import java.util.Collections;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
- * 反转字符串里的单词
- *
- * @author CharleyXu Created on 2019/3/17.
+ * Created by CharleyXu on 2020-06-11
+ * <p>
+ * <p>
+ * 151
+ * 给定一个字符串，
+ * <p>
+ * 需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+ * <p>
+ * 输入：s = "the sky is blue"
+ * 输出："blue is sky the"
  */
 public class ReverseWords {
 
-  /**
-   * split + Collections.reverse()
-   *
-   * 时间复杂度O(n)  空间复杂度O(n)
-   */
-  private String reverseWords(String string) {
-    if (string == null || string.isEmpty() || string.length() == 1) {
-      return string;
+    /**
+     * 使用api
+     */
+    public String reverseWords(String s) {
+        s = s.trim();
+        List<String> wordList = Arrays.asList(s.split("\\s+"));
+        Collections.reverse(wordList);
+        return String.join(" ", wordList);
     }
-    //trim()是为了去掉前导或尾随空格
-    //split():这是正则表达式。+表示至少1，所以在这种情况下，" +"意味着至少有一个空格
-    String[] split = string.trim().split(" +");
-    Collections.reverse(Arrays.asList(split));
-    return String.join(" ", split);
-  }
 
-  /**
-   * 先将整个字符串的字符反转，再将单个词的字符反转
-   *
-   * 去多余的空格、字符串反转、单词反转
-   */
-  private String reverseWords2(String string) {
-    if (string == null || string.isEmpty() || string.length() == 1) {
-      return string;
-    }
-    char[] chars = delExtraSpaces(string).toCharArray();
-    reverseArray(chars, 0, chars.length - 1);
-    reverseWord(chars, chars.length);
-    return new String(chars);
-  }
-
-  private void reverseArray(char[] chars, int i, int j) {
-    while (i < j) {
-      char temp = chars[i];
-      chars[i++] = chars[j];
-      chars[j--] = temp;
-    }
-  }
-
-  private String delExtraSpaces(String string) {
-    char[] chars = string.trim().toCharArray();
-    String result = "";
-    int start = 0, end = chars.length;
-    while (start < end) {
-      if (chars[start] != ' ') {
-        result += chars[start++];
-      } else {
-        result += " ";
-        while (chars[start] == ' ') {
-          start++;
+    /**
+     * 双指针
+     * <p>
+     * <p>
+     * 时间复杂度 O(n)
+     * <p>
+     * 空间复杂度 O(n)
+     */
+    public String reverseWords3(String s) {
+        StringBuilder sb = new StringBuilder();
+        s = s.trim();
+        int j = s.length() - 1, i = j;
+        while (i >= 0) {
+            // 搜索首个空格
+            while (i >= 0 && s.charAt(i) != ' ') {
+                i--;
+            }
+            sb.append(s.substring(i + 1, j + 1) + " ");
+            // 跳过单词间空格
+            while (i >= 0 && s.charAt(i) == ' ') {
+                i--;
+            }
+            j = i;
         }
-      }
+        return sb.toString().trim();
     }
-    return result;
-  }
 
-  /**
-   * 找到单词的起始结束位置
-   */
-  private void reverseWord(char[] chars, int end) {
-    int i = 0, j = 0;
-    while (i < end) {
-      // skip spaces
-      while (i < j || i < end && chars[i] == ' ') {
-        i++;
-      }
-      // skip no spaces
-      while (j < i || j < end && chars[j] != ' ') {
-        j++;
-      }
-      // reverse
-      reverseArray(chars, i, j - 1);
+    /**
+     * 双指针
+     * <p>
+     * <p>
+     * 时间复杂度 O(n)
+     * <p>
+     * 空间复杂度 O(n)
+     */
+    public String reverseWords2(String s) {
+        // trim掉 前后的空串
+        StringBuilder sb = trimSpace(s);
+        // 反转整个字符串
+        reverse(sb, 0, sb.length() - 1);
+        // 反转每一个字符串
+        reverseEachWord(sb);
+        // join
+        return sb.toString();
     }
-  }
 
-  @Test
-  public void reverseWordsTest() {
-    String string = "This  is a classroom";
-    String s = reverseWords2(string);
-    System.out.println(s);
-  }
+    private StringBuilder trimSpace(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left <= right && s.charAt(left) == ' ') {
+            left++;
+        }
+        while (left <= right && s.charAt(right) == ' ') {
+            right--;
+        }
+        StringBuilder sb = new StringBuilder();
+        // 去除字符串之间多余的空串
+        while (left <= right) {
+            char c = s.charAt(left);
+            if (c != ' ') {
+                sb.append(c);
+            } else if (sb.charAt(sb.length() - 1) != ' ') {
+                sb.append(c);
+            }
+            left++;
+        }
+        return sb;
+    }
+
+    private void reverse(StringBuilder s, int left, int right) {
+        while (left < right) {
+            char c = s.charAt(left);
+            s.setCharAt(left, s.charAt(right));
+            s.setCharAt(right, c);
+            left++;
+            right--;
+        }
+    }
+
+    /*反转每一个单词*/
+    private void reverseEachWord(StringBuilder s) {
+        int length = s.length();
+        int start = 0, end = 0;
+        while (start < length) {
+            while (end < length && s.charAt(end) != ' ') {
+                end++;
+            }
+            reverse(s, start, end - 1);
+            // 更新start，寻找下一个单词
+            start = end + 1;
+            end++;
+        }
+    }
+
+    @Test
+    public void reverseWordsTest() {
+        String s = "the sky is blue";
+        System.out.println(reverseWords2(s));
+        System.out.println(reverseWords3(s));
+    }
 
 }
