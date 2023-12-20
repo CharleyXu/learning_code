@@ -47,7 +47,7 @@ public class ReverseWords {
             while (i >= 0 && s.charAt(i) != ' ') {
                 i--;
             }
-            sb.append(s.substring(i + 1, j + 1) + " ");
+            sb.append(s.substring(i + 1, j + 1)).append(" ");
             // 跳过单词间空格
             while (i >= 0 && s.charAt(i) == ' ') {
                 i--;
