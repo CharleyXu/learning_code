@@ -55,8 +55,8 @@ public class MergeSortedArray {
         int n = 4;
         mergeSortedArray(arr1, m, arr2, n);
         System.out.println(Arrays.toString(arr1));
-//        int[] res = mergeArrays(arr1, m, arr2, n);
-//        System.out.println(Arrays.toString(res));
+        int[] res = mergeArrays(arr1, m, arr2, n);
+        System.out.println(Arrays.toString(res));
     }
 
     private int[] mergeArrays(int[] nums1, int m, int[] nums2, int n) {

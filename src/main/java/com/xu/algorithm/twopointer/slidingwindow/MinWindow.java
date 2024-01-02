@@ -1,4 +1,4 @@
-package com.xu.algorithm.twopointer;
+package com.xu.algorithm.twopointer.slidingwindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,22 @@ import java.util.Map;
  * Created by CharleyXu on 2023/12/5
  * <p>
  * 76 最小覆盖子串
+ * <p>
+ * 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。
+ * <p>
+ * 如果 s 中不存在涵盖 t 所有字符的子串，则返回空字符串 ""
+ * <p>
+ * 输入：s = "ADOBECODEBANC", t = "ABC"
+ * <p>
+ * 输出："BANC"
+ * <p>
+ * 解释：最小覆盖子串 "BANC" 包含来自字符串 t 的 'A'、'B' 和 'C'。
  */
 public class MinWindow {
 
+    /**
+     * 时间复杂度 O(n)
+     */
     public String minWindow(String s, String t) {
         // 维护s串中滑动窗口中各个字符出现次数
         Map<Character, Integer> hs = new HashMap<>();

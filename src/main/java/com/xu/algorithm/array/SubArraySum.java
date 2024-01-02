@@ -1,4 +1,4 @@
-package com.xu.algorithm.hash;
+package com.xu.algorithm.array;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,10 @@ import java.util.Map;
  * Created by CharleyXu on 2023/12/7
  * <p>
  * 560 和为k的子数组
+ * <p>
+ * 输入：nums = [1,1,1], k = 2
+ * <p>
+ * 输出：2
  */
 public class SubArraySum {
 
