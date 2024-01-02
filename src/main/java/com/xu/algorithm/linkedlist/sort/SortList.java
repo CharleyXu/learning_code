@@ -4,6 +4,8 @@ import com.xu.algorithm.linkedlist.ListNode;
 
 /**
  * Created by CharleyXu on 2023/12/8
+ * <p>
+ * 148 排序链表
  */
 public class SortList {
 
@@ -46,6 +48,28 @@ public class SortList {
         }
         cur.next = left != null ? left : right;
         return dummy.next;
+    }
+
+    public ListNode bubbleSort(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode pre = head;
+        int temp = 0;
+        ListNode cur;
+        while (pre.next != null) {
+            cur = pre.next;
+            while (cur != null) {
+                if (cur.val < pre.val) {
+                    temp = cur.val;
+                    cur.val = pre.val;
+                    pre.val = temp;
+                }
+                cur = cur.next;
+            }
+            pre = pre.next;
+        }
+        return head;
     }
 
 }

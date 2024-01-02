@@ -1,8 +1,9 @@
 package com.xu.algorithm.array;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,10 +19,12 @@ import java.util.List;
  */
 public class MergeIntervals {
 
+    /**
+     * 时间复杂度 O(nlogn)
+     */
     public int[][] merge(int[][] intervals) {
-        // 先按照区间左端点排序
-        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
-        // Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
+        // 按照区间左端点排序
+        Arrays.sort(intervals, (interval1, interval2) -> interval1[0] - interval2[0]);
         List<int[]> list = new ArrayList<>();
         list.add(intervals[0]);
         for (int i = 1; i < intervals.length; i++) {
@@ -34,9 +37,13 @@ public class MergeIntervals {
                 list.add(interval);
             }
         }
-        // 时间复杂度是排序的时间复杂度 O(nlogn)
-        // 空间复杂度是排序的空间负责度 O(logn)
         return list.toArray(new int[list.size()][]);
+    }
+
+    @Test
+    public void mergeIntervalsTest() {
+        int[][] intervals = new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 3}};
+        System.out.println(Arrays.deepToString(merge(intervals)));
     }
 
 }

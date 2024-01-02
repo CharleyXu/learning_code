@@ -11,16 +11,16 @@ package com.xu.algorithm.tree;
  */
 public class MaxPathSum {
 
-    int max = Integer.MIN_VALUE;
+    int ans = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
         dfs(root);
-        return max;
+        return ans;
     }
 
     /**
      * 时间复杂度：O(N)，其中 N 是二叉树中的节点个数。对每个节点访问不超过 2 次。
-     *
+     * <p>
      * 空间复杂度：O(N)，空间复杂度主要取决于递归调用层数，最大层数等于二叉树的高度，最坏情况下，二叉树的高度等于二叉树中的节点个数
      */
     private int dfs(TreeNode root) {
@@ -33,9 +33,9 @@ public class MaxPathSum {
         int right = Math.max(dfs(root.right), 0);
         // 节点的最大路径和取决于该节点的值与该节点的左右子节点的最大贡献值
         // 更新答案
-        max = Math.max(max, root.val + left + right);
+        ans = Math.max(ans, root.val + left + right);
         // 返回节点的最大贡献值
-        return root.val + Math.max(left, right);
+        return Math.max(root.val, root.val + Math.max(left, right));
     }
 
 }
