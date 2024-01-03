@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * Created by CharleyXu on 2020-08-13
  * <p>
- * 判断二叉树是不是完全二叉树
+ * 958. 二叉树的完全性检验
  */
 public class CheckCompleteTree extends BaseTreeNode {
 
@@ -20,6 +20,8 @@ public class CheckCompleteTree extends BaseTreeNode {
      * 根据这个特性，利用层次遍历
      *
      * 如果我们当前遍历到了NULL结点，如果后续还有非NULL结点，说明是非完全二叉树。
+     *
+     * 层序遍历的过程中遇到第一个空节点之后不应该再出现非空节点
      *
      * @param root
      * @return

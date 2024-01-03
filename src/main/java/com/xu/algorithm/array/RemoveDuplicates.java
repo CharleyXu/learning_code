@@ -1,19 +1,19 @@
 package com.xu.algorithm.array;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
 /**
- * @author CharleyXu Created on 2019/3/17.\
+ * @author CharleyXu Created on 2019/3/17
  * <p>
  * 删除数组中的重复项
  */
 public class RemoveDuplicates {
 
     /**
-     *
-     *
      * reserved，非nums[start - 1] 坐过来
      */
     private int removeDuplicates(int[] nums) {
@@ -59,4 +59,29 @@ public class RemoveDuplicates {
         int result = removeDuplicatesTwoElement(ints);
         System.out.println(result);
     }
+
+    /**
+     * 1047 删除字符串中的所有相邻重复项
+     * <p>
+     * 输入:"abbaca"
+     * <p>
+     * 输出:"ca"
+     */
+    public String removeDuplicates(String s) {
+        char[] cs = s.toCharArray();
+        Deque<Character> d = new ArrayDeque<>();
+        for (char c : cs) {
+            if (!d.isEmpty() && d.peekLast().equals(c)) {
+                d.pollLast();
+            } else {
+                d.addLast(c);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!d.isEmpty()) {
+            sb.append(d.pollLast());
+        }
+        return sb.reverse().toString();
+    }
+
 }

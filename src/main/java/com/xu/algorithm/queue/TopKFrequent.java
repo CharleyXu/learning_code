@@ -8,6 +8,10 @@ import java.util.PriorityQueue;
  * Created by CharleyXu on 2023/12/7
  * <p>
  * 347 前 K 个高频元素
+ * <p>
+ * Input: nums = [1,1,1,1,2,2,3,4], k = 2
+ * <p>
+ * Output: [1,2]
  */
 public class TopKFrequent {
 
