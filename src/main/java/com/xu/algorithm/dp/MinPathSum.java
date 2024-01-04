@@ -16,7 +16,7 @@ public class MinPathSum {
      */
     public int minPathSum(int[][] grid) {
         int m = grid.length, n = grid[0].length;
-        // 初始化 dp 表
+        // 初始化 dp 表 dp[i][j] 表示从左上角开始到 (i, j) 位置的最 优路径的数字和
         int[][] dp = new int[m][n];
         dp[0][0] = grid[0][0];
         // 状态转移，首行
