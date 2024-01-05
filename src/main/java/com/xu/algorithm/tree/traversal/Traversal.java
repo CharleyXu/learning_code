@@ -243,23 +243,52 @@ public class Traversal {
         return list;
     }
 
-    public List<List<Integer>> levelOrder2(TreeNode root) {
+    /**
+     * 107 二叉树的层序遍历，自底向上的层序遍历
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
-        if(root == null){
+        if (root == null) {
             return res;
         }
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int count = queue.size();
-            List<Integer> nodeList = new ArrayList<>();
-            while(count>0){
+            List<Integer> integers = new ArrayList<>();
+            while (count > 0) {
                 TreeNode treeNode = queue.poll();
-                nodeList.add(treeNode.val);
-                if(treeNode.left!=null){
+                integers.add(treeNode.val);
+                if (treeNode.left != null) {
                     queue.add(treeNode.left);
                 }
-                if(treeNode.right!=null){
+                if (treeNode.right != null) {
+                    queue.add(treeNode.right);
+                }
+                count--;
+            }
+            res.add(0, integers);
+        }
+        return res;
+    }
+
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int count = queue.size();
+            List<Integer> nodeList = new ArrayList<>();
+            while (count > 0) {
+                TreeNode treeNode = queue.poll();
+                nodeList.add(treeNode.val);
+                if (treeNode.left != null) {
+                    queue.add(treeNode.left);
+                }
+                if (treeNode.right != null) {
                     queue.add(treeNode.right);
                 }
                 count--;

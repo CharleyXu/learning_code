@@ -27,6 +27,36 @@ import org.junit.Test;
  */
 public class SearchRotationSortArray2 {
 
+    public boolean search2(int[] nums, int target) {
+        int n = nums.length;
+        int start = 0, end = n - 1;
+        while (start <= end) {
+            int mid = start + end >> 1;
+            if (nums[mid] == target) {
+                return true;
+            }
+            if (nums[mid] == nums[start]) {
+                // 无法判断哪个区间是增区间
+                start++;
+            } else if (nums[mid] <= nums[end]) {
+                // 右区间是增序
+                if (target > nums[mid] && target <= nums[end]) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            } else {
+                // 左区间是增序
+                if (target >= nums[start] && target < nums[mid]) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * 时间复杂度 O(n)
      */
@@ -57,36 +87,6 @@ public class SearchRotationSortArray2 {
         if (ans != -1) return true;
         ans = find(nums, idx, n - 1, target);
         return ans != -1;
-    }
-
-    public boolean search2(int[] nums, int target) {
-        int n = nums.length;
-        int start = 0, end = n - 1;
-        while (start <= end) {
-            int mid = start + end >> 1;
-            if (nums[mid] == target) {
-                return true;
-            }
-            if (nums[mid] == nums[start]) {
-                // 无法判断哪个区间是增区间
-                start++;
-            } else if (nums[mid] <= nums[end]) {
-                // 右区间是增序
-                if (target > nums[mid] && target <= nums[end]) {
-                    start = mid + 1;
-                } else {
-                    end = mid - 1;
-                }
-            } else {
-                // 左区间是增序
-                if (target >= nums[start] && target < nums[mid]) {
-                    end = mid - 1;
-                } else {
-                    start = mid + 1;
-                }
-            }
-        }
-        return false;
     }
 
     /**
