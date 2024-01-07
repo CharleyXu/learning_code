@@ -1,5 +1,7 @@
 package com.xu.algorithm.dp;
 
+import java.util.Arrays;
+
 /**
  * Created by CharleyXu on 2020-06-10
  * <p>
@@ -15,15 +17,43 @@ public class CoinChange {
      * 输入: coins = [1, 2, 5], amount = 11
      * 输出: 3
      * 解释: 11 = 5 + 5 + 1
-     *
-     */
-
-    /**
-     * F(S)：组成金额 S所需的最少硬币数量
      * <p>
-     * [c0...cn] 可选的n枚硬币的面值
+     * 时间复杂度 O(Sn), S 是金额，n 是面额数。
+     * <p>
+     * 空间复杂度：O(S)
      */
     public int coinChange(int[] coins, int amount) {
-        return 0;
+        int max = amount + 1;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, max);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
     }
+
+    /* 零钱兑换:贪心 */
+    int coinChangeGreedy(int[] coins, int amt) {
+        // 假设 coins 列表有序
+        int i = coins.length - 1;
+        int count = 0;
+        // 循环进行贪心选择，直到无剩余金额
+        while (amt > 0) {
+            // 找到小于且最接近剩余金额的硬币
+            while (i > 0 && coins[i] > amt) {
+                i--;
+            }
+            // 选择 coins[i]
+            amt -= coins[i];
+            count++;
+        }
+        // 若未找到可行方案，则返回 -1
+        return amt == 0 ? count : -1;
+    }
+
 }
