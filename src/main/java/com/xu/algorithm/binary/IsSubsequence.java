@@ -1,4 +1,4 @@
-package com.xu.algorithm.twopointer;
+package com.xu.algorithm.binary;
 
 /**
  * Created by CharleyXu on 2020-06-17
