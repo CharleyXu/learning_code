@@ -1,4 +1,4 @@
-package com.xu.algorithm.twopointer.slidingwindow;
+package com.xu.algorithm.binary.slidingwindow;
 
 import java.util.HashSet;
 import java.util.Set;

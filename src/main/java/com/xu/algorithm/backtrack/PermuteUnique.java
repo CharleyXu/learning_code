@@ -13,10 +13,10 @@ import java.util.Set;
  * <p>
  * 输入一个整数数组，数组中可能包含重复元素，返回所有不重复的排列。
  */
-public class Permutations {
+public class PermuteUnique {
 
     /* 全排列 II */
-    List<List<Integer>> permutations(int[] nums) {
+    List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         backtrack(new ArrayList<>(), nums, new boolean[nums.length], res);
         return res;

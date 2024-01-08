@@ -1,4 +1,4 @@
-package com.xu.algorithm.twopointer;
+package com.xu.algorithm.binary;
 
 import org.junit.Test;
 
