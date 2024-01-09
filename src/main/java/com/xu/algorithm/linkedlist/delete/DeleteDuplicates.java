@@ -5,7 +5,8 @@ import com.xu.algorithm.linkedlist.ListNode;
 /**
  * Created by CharleyXu on 2020-06-02
  * <p>
- * 删除排序链表中的重复元素
+ * <p>
+ * 83 删除排序链表中的重复元素, 使每个元素只出现一次
  */
 public class DeleteDuplicates {
 

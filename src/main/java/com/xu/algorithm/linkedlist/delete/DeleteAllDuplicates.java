@@ -5,6 +5,9 @@ import com.xu.algorithm.linkedlist.ListNode;
 /**
  * Created by CharleyXu on 2020-06-05
  * <p>
+ * 82. 删除排序链表中的重复元素
+ *
+ * <p>
  * 给定一个排序链表，删除所有含有重复数字的节点，
  * <p>
  * 只保留原始链表中 没有重复出现的数字。

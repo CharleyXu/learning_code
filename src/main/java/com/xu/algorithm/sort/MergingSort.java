@@ -48,7 +48,7 @@ public class MergingSort extends BaseSort {
         if (start >= end) {
             return;
         }
-        int mid = ((end + start) >> 1);
+        int mid = end + start >> 1;
         int start1 = start, end1 = mid;
         int start2 = mid + 1, end2 = end;
         //拆分

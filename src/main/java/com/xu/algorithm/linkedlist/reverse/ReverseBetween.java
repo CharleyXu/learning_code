@@ -6,6 +6,8 @@ import org.junit.Test;
 
 /**
  * Created by CharleyXu on 2020-06-05
+ * <p>
+ * 92 反转链表II
  */
 public class ReverseBetween extends BaseLinkedList {
 
@@ -31,7 +33,7 @@ public class ReverseBetween extends BaseLinkedList {
             prev = curr;
             curr = temp;
         }
-        // 修改m 和 n-m 位置处的节点指向
+        // 修改 m 和 n-m 位置处的节点指向
         pre.next.next = curr;
         pre.next = prev;
         return dummy.next;
