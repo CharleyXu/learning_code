@@ -11,7 +11,7 @@ package com.xu.algorithm.dp;
  * <p>
  * 输出：true
  * <p>
- * 解释：数组可以分割成 [1, 5, 5] 和 [11] 。
+ * 解释：数组可以分割成 [1, 5, 5] 和 [11]
  */
 public class CanPartition {
 
