@@ -11,12 +11,12 @@ import com.xu.algorithm.linkedlist.ListNode;
 public class DeleteDuplicates {
 
     public ListNode deleteDuplicates(ListNode head) {
-        ListNode pre = head;
-        while (pre != null && pre.next != null) {
-            if (pre.val == pre.next.val) {
-                pre.next = pre.next.next;
+        ListNode cur = head;
+        while (cur != null && cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
             } else {
-                pre = pre.next;
+                cur = cur.next;
             }
         }
         return head;
