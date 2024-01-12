@@ -1,5 +1,7 @@
 package com.xu.algorithm.backtrack;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,12 @@ public class Permute {
             }
 
         }
+    }
+
+    @Test
+    public void permuteTest() {
+        int[] nums = new int[]{1, 2, 3};
+        System.out.println(permute(nums));
     }
 
 

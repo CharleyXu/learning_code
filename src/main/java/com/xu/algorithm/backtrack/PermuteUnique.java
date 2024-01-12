@@ -1,5 +1,7 @@
 package com.xu.algorithm.backtrack;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +57,12 @@ public class PermuteUnique {
                 state.remove(state.size() - 1);
             }
         }
+    }
+
+    @Test
+    public void permuteUniqueTest() {
+        int[] nums = new int[]{1, 3, 3, 5};
+        System.out.println(permuteUnique(nums));
     }
 
 }
