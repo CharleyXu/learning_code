@@ -15,22 +15,22 @@ public class Partition {
      * 时间复杂度 O(n)
      */
     public ListNode partition(ListNode head, int x) {
-        ListNode s = new ListNode(-1);
-        ListNode sHead = s;
-        ListNode l = new ListNode(-1);
-        ListNode lHead = l;
+        ListNode small = new ListNode(-1);
+        ListNode sHead = small;
+        ListNode large = new ListNode(-1);
+        ListNode lHead = large;
         while (head != null) {
             if (head.val < x) {
-                s.next = head;
-                s = s.next;
+                small.next = head;
+                small = small.next;
             } else {
-                l.next = head;
-                l = l.next;
+                large.next = head;
+                large = large.next;
             }
             head = head.next;
         }
-        l.next = null;
-        s.next = lHead.next;
+        large.next = null;
+        small.next = lHead.next;
         return sHead.next;
     }
 }

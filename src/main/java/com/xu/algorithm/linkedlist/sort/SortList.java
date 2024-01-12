@@ -1,13 +1,15 @@
 package com.xu.algorithm.linkedlist.sort;
 
+import com.xu.algorithm.linkedlist.BaseLinkedList;
 import com.xu.algorithm.linkedlist.ListNode;
+import org.junit.Test;
 
 /**
  * Created by CharleyXu on 2023/12/8
  * <p>
  * 148 排序链表
  */
-public class SortList {
+public class SortList extends BaseLinkedList {
 
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
@@ -48,6 +50,11 @@ public class SortList {
         }
         cur.next = left != null ? left : right;
         return dummy.next;
+    }
+
+    @Test
+    public void sortListTest() {
+        System.out.println(sortList(head));
     }
 
     public ListNode bubbleSort(ListNode head) {

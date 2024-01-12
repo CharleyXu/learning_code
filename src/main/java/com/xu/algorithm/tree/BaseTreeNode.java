@@ -5,13 +5,13 @@ package com.xu.algorithm.tree;
  */
 public class BaseTreeNode {
 
-    public static TreeNode root = new TreeNode(50);
-    static TreeNode left = new TreeNode(20);
-    static TreeNode right = new TreeNode(80);
-    static TreeNode left1 = new TreeNode(10);
-    static TreeNode right1 = new TreeNode(30);
-    static TreeNode left2 = new TreeNode(60);
-    static TreeNode right2 = new TreeNode(90);
+    public static TreeNode root = new TreeNode(5);
+    static TreeNode left = new TreeNode(2);
+    static TreeNode right = new TreeNode(8);
+    static TreeNode left1 = new TreeNode(1);
+    static TreeNode right1 = new TreeNode(3);
+    static TreeNode left2 = new TreeNode(6);
+    static TreeNode right2 = new TreeNode(9);
 
     static {
         root.left = left;
@@ -23,9 +23,9 @@ public class BaseTreeNode {
     }
 
     /**
-     *           50
-     *      20        80
-     *   10    30  60   90
+     *           5
+     *      2      8
+     *    1    3  6   9
      *
      */
 

@@ -22,12 +22,11 @@ public class KthSmallest extends BaseTreeNode {
      * 它的左子树的所有节点的值都小于 node.val，
      * <p>
      * 且它的右子树的所有节点的值都大于 node.val
-     *
+     * <p>
      * 时间复杂度：令 h 为树高，先到达叶子位置（最小节点位置），复杂度为 O(h)
-     *
+     * <p>
      * 然后找到第 k 小的元素，复杂度为 O(k)。整体复杂度为 O(h+k)
      * 空间复杂度：令 h 为树高，复杂度为 O(h)
-     *
      */
     public int kthSmallest(TreeNode root, int k) {
         Deque<TreeNode> stack = new ArrayDeque<>();

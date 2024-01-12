@@ -27,28 +27,55 @@ public class Traversal {
         preOrderRecur(head.right);
     }
 
-    @Test
-    public void preorderTraversal() {
-        List<Integer> integers = postorderTraversal(BaseTree.root);
-        System.out.println(integers);
-    }
-
-    public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> nodeList = new ArrayList<>();
-        traversal(nodeList, root);
-        return nodeList;
-    }
-
-    private void traversal(List<Integer> nodeList, TreeNode root) {
-        if (root == null) {
-            return;
+    /**
+     * 前序遍历,非递归(DFS) Depth-First-Search 深度优先
+     * <p>
+     * 从初始点开始按照一个方向遍历，这个方向到尽头停止后到另一个方向，直到所有操作完成退出
+     * <p>
+     * 根-左子树-右子树
+     */
+    public List<Integer> preOrder(TreeNode head) {
+        List<Integer> res = new ArrayList<>();
+        if (head == null) {
+            return res;
         }
-        traversal(nodeList, root.left);
-        traversal(nodeList, root.right);
-        nodeList.add(root.val);
-
+        Stack<TreeNode> treeNodeStack = new Stack<>();
+        treeNodeStack.push(head);
+        while (!treeNodeStack.isEmpty()) {
+            TreeNode treeNode = treeNodeStack.pop();
+            res.add(treeNode.val);
+            if (treeNode.right != null) {
+                treeNodeStack.push(treeNode.right);
+            }
+            if (treeNode.left != null) {
+                treeNodeStack.push(treeNode.left);
+            }
+        }
+        return res;
     }
 
+    public List<Integer> preOrderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        while (root != null || !deque.isEmpty()) {
+            while (root != null) {
+                res.add(root.val);
+                deque.offer(root);
+                root = root.left;
+            }
+            root = deque.pop();
+            root = root.right;
+        }
+        return res;
+    }
+
+    /**
+     * 中序遍历
+     * 左子树-根-右子树
+     */
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) {
@@ -68,6 +95,41 @@ public class Traversal {
     }
 
     /**
+     * Morris中序遍历
+     * <p>
+     * 非递归的中序遍历空间复杂度降为 O(1)
+     */
+    public List<Integer> inorderTraversalMorris(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        TreeNode predecessor = null;
+        while (root != null) {
+            if (root.left != null) {
+                // predecessor 节点就是当前root节点向左走一步，一直向右走直至无法走为止
+                predecessor = root.left;
+                while (predecessor.right != null && predecessor.right != root) {
+                    predecessor = predecessor.right;
+                }
+                // 让predecessor 右指针指向root，继续遍历左子树
+                if (predecessor.right == null) {
+                    predecessor.right = root;
+                    root = root.left;
+                }
+                // 左子树访问完了，断开链接
+                else {
+                    res.add(root.val);
+                    predecessor.right = null;
+                    root = root.right;
+                }
+                // 如果没有子孩子，直接访问右孩子
+            } else {
+                res.add(root.val);
+                root = root.right;
+            }
+        }
+        return res;
+    }
+
+    /**
      * 中序遍历
      * <p>
      * 左子树-根-右子树
@@ -79,6 +141,21 @@ public class Traversal {
         inOrderRecur(head.left);
         System.out.println(head.val);
         inOrderRecur(head.right);
+    }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> nodeList = new ArrayList<>();
+        traversal(nodeList, root);
+        return nodeList;
+    }
+
+    private void traversal(List<Integer> nodeList, TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        traversal(nodeList, root.left);
+        traversal(nodeList, root.right);
+        nodeList.add(root.val);
     }
 
     /**
@@ -93,53 +170,6 @@ public class Traversal {
         postOrderRecur(head.left);
         postOrderRecur(head.right);
         System.out.println(head.val);
-    }
-
-    /**
-     * 前序遍历,非递归(DFS) Depth-First-Search 深度优先
-     * <p>
-     * 从初始点开始按照一个方向遍历，这个方向到尽头停止后到另一个方向，直到所有操作完成退出
-     * <p>
-     * 根-左子树-右子树
-     */
-    public void preOrder(TreeNode head) {
-        if (head == null) {
-            return;
-        }
-        Stack<TreeNode> treeNodeStack = new Stack<>();
-        treeNodeStack.push(head);
-        while (!treeNodeStack.isEmpty()) {
-            TreeNode treeNode = treeNodeStack.pop();
-            System.out.println(treeNode.val);
-            if (treeNode.right != null) {
-                treeNodeStack.push(treeNode.right);
-            }
-            if (treeNode.left != null) {
-                treeNodeStack.push(treeNode.left);
-            }
-        }
-    }
-
-    /**
-     * 中序遍历 非递归
-     * <p>
-     * 左子树-根-右子树
-     */
-    public void inOrder(TreeNode head) {
-        if (head == null) {
-            return;
-        }
-        Stack<TreeNode> stack = new Stack<>();
-        while (!stack.isEmpty() || head != null) {
-            if (head != null) {
-                stack.push(head);
-                head = head.left;
-            } else {
-                head = stack.pop();
-                System.out.println(head.val);
-                head = head.right;
-            }
-        }
     }
 
     /**
@@ -272,40 +302,16 @@ public class Traversal {
         return res;
     }
 
-    public List<List<Integer>> levelOrder2(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
-        LinkedList<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            int count = queue.size();
-            List<Integer> nodeList = new ArrayList<>();
-            while (count > 0) {
-                TreeNode treeNode = queue.poll();
-                nodeList.add(treeNode.val);
-                if (treeNode.left != null) {
-                    queue.add(treeNode.left);
-                }
-                if (treeNode.right != null) {
-                    queue.add(treeNode.right);
-                }
-                count--;
-            }
-            res.add(nodeList);
-        }
-        return res;
-    }
-
     @Test
     public void preOrder() {
-        preOrder(BaseTree.root);
+        System.out.println(preOrder(BaseTree.root));
+        System.out.println(preOrderTraversal(BaseTree.root));
     }
 
     @Test
     public void inOrder() {
-        inOrder(BaseTree.root);
+        System.out.println(inorderTraversal(BaseTree.root));
+        System.out.println(inorderTraversalMorris(BaseTree.root));
     }
 
     @Test
@@ -335,7 +341,7 @@ public class Traversal {
 
     @Test
     public void levelOrderTest() {
-        System.out.println(levelOrder2(BaseTree.root));
+        System.out.println(levelOrder(BaseTree.root));
     }
 
 }

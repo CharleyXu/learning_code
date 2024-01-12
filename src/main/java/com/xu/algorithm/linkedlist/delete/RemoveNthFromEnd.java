@@ -36,29 +36,36 @@ public class RemoveNthFromEnd extends BaseLinkedList {
         return dummy.next;
     }
 
+    /**
+     * 使用递归找到倒数第n+1个节点
+     */
     public ListNode removeNthFromEnd2(ListNode head, int n) {
-        ListNode fast = head;
-        ListNode slow = head;
-        for (int i = 0; i < n; i++) {
-            fast = fast.next;
-        }
-        while (fast != null && fast.next != null) {
-            fast = fast.next;
-            slow = slow.next;
-        }
-        if (fast == null) {
+        int length = length(head, n);
+        if (length == n) {
             return head.next;
         }
-        slow.next = slow.next.next;
         return head;
     }
 
+    //  获取节点的长度，从后往前数，到第n+1个节点的时候把倒数第n个节点删除。
+    private int length(ListNode head, int n) {
+        if (head == null) {
+            return 0;
+        }
+        int len = length(head.next, n) + 1;
+        if (len == n + 1) {
+            head.next = head.next.next;
+        }
+        return len;
+    }
+
+
     /**
-     * 0  1 7 8 9 9 15
+     * 0 1 7 8 9 9 15
      */
     @Test
     public void removeNthFromEndTest() {
-        ListNode listNode = removeNthFromEnd(head, 4);
-        System.out.println(listNode);
+        System.out.println(removeNthFromEnd(head, 4));
+        System.out.println(removeNthFromEnd2(head, 4));
     }
 }
