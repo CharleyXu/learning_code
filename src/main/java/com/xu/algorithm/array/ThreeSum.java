@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author CharleyXu Created on 2019/3/18.
  * <p>
- * 三数之和
+ * 15 三数之和
  * <p>
  * 排序 + 双指针
  */
@@ -17,6 +17,11 @@ public class ThreeSum {
 
     /**
      * 判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0
+     * <p>
+     * 在确定第一个数和第二个数的时候，要跳过数值一样的下标
+     *
+     * <p>
+     * 在三数之和确定的情况下，确保第一个数和第二个数不会重复，即可保证三元组不重复
      */
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -29,22 +34,20 @@ public class ThreeSum {
             }
             int left = i + 1, right = n - 1;
             while (left < right) {
+                while (left > i + 1 && left < n && nums[left] == nums[left - 1]) {
+                    left++;
+                }
+                if (left >= right) {
+                    break;
+                }
                 int sum = nums[i] + nums[left] + nums[right];
-                if (sum > 0) {
-                    right--;
-                } else if (sum < 0) {
-                    left++;
-                } else {
+                if (sum == 0) {
                     res.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    // 避免重复的元素
-                    while (left < right && nums[left] == nums[left + 1]) {
-                        left++;
-                    }
-                    while (left < right && nums[right] == nums[right - 1]) {
-                        right--;
-                    }
                     left++;
+                } else if (sum > 0) {
                     right--;
+                } else {
+                    left++;
                 }
             }
         }
@@ -52,11 +55,17 @@ public class ThreeSum {
     }
 
     /**
+     * 16 最接近的三数之和
+     * <p>
      * 给定一个n个整数的数组S，在S中找到三个整数，使得总和最接近给定数量的目标。
-     *
-     * @param nums
-     * @param target
-     * @return
+     * <p>
+     * 输入：nums = [-1,2,1,-4], target = 1
+     * <p>
+     * 输出：2
+     * <p>
+     * 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2)
+     * <p>
+     * 时间复杂度 O(n2)
      */
     public int threeSumClosest(int[] nums, int target) {
         if (nums == null || nums.length < 3) {
@@ -80,7 +89,7 @@ public class ThreeSum {
                     result = sum;
                 }
                 if (sum == target) {
-                    return abs;
+                    return target;
                 } else if (sum < target) {
                     low++;
                 } else {
