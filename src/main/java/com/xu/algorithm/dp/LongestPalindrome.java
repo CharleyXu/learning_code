@@ -25,17 +25,9 @@ public class LongestPalindrome {
             return s;
         }
         boolean[][] dp = new boolean[n][n];
-        // 单个字符是回文串
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = true;
-        }
         for (int right = 0; right < n; right++) {
             for (int left = 0; left <= right; left++) {
-                if (left == right) {
-                    dp[left][right] = true;
-                } else {
-                    dp[left][right] = s.charAt(left) == s.charAt(right) && (right - left <= 2 || dp[left + 1][right - 1]);
-                }
+                dp[left][right] = s.charAt(left) == s.charAt(right) && (right - left < 2 || dp[left + 1][right - 1]);
                 if (dp[left][right] && right - left >= res.length()) {
                     res = s.substring(left, right + 1);
                 }
