@@ -1,5 +1,7 @@
 package com.xu.algorithm.dp;
 
+import org.junit.Test;
+
 /**
  * Created by CharleyXu on 2024/1/12
  * <p>
@@ -8,6 +10,33 @@ package com.xu.algorithm.dp;
  */
 public class MaxProfit {
 
+    /**
+     * 121
+     * <p>
+     * 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润
+     * <p>
+     * 输入：[7,1,5,3,6,4]
+     * <p>
+     * 输出：5
+     */
+    public int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int max = 0;
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < min) {
+                min = prices[i];
+            } else if (prices[i] - min > max) {
+                max = prices[i] - min;
+            }
+        }
+        return max;
+    }
+
+    @Test
+    public void maxProfitTest() {
+        int[] nums = new int[]{7, 1, 5, 3, 6, 4};
+        System.out.println(maxProfit(nums));
+    }
 
     /**
      * 122 买卖股票的最佳时机 II
@@ -73,6 +102,35 @@ public class MaxProfit {
             sell2 = Math.max(sell2, buy2 + prices[i]);
         }
         return sell2;
+    }
+
+    /**
+     * 309 买卖股票的最佳时机含冷冻期
+     * <p>
+     * 卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)
+     * <p>
+     * 输入: prices = [1,2,3,0,2]
+     * <p>
+     * 输出: 3
+     * <p>
+     * 解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
+     */
+    public int maxProfit4(int[] prices) {
+        // 持有股票 pre, 不持有股票处于冷冻期 f0，不持有股票不处于冷冻期 f1
+        int pre = 0, f0 = 0, f1 = Integer.MIN_VALUE;
+        for (int price : prices) {
+            int newF0 = Math.max(f0, f1 + price);
+            f1 = Math.max(f1, pre - price);
+            pre = f0;
+            f0 = newF0;
+        }
+        return f0;
+    }
+
+    @Test
+    public void maxProfit4Test() {
+        int[] nums = new int[]{1, 2, 3, 0, 2};
+        System.out.println(maxProfit4(nums));
     }
 
 
