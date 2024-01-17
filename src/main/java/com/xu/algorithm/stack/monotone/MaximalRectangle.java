@@ -1,5 +1,7 @@
 package com.xu.algorithm.stack.monotone;
 
+import org.junit.Test;
+
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -47,34 +49,48 @@ public class MaximalRectangle {
         return ans;
     }
 
+    /**
+     * 先求出每层1的高度，以每一点高度为基准，向左向右遍历，计算以这个高度能达到的宽度，求最值
+     * <p>
+     * 每个点暴力向左找大于等于该数的个数,cnt++，向右找大于等于该数的个数,cnt++，最后的最大值判决
+     * <p>
+     * Math.max(ans, cnt * matrix1[i][j])
+     */
     public int maximalRectangleDp(char[][] matrix) {
-        int n = matrix.length;
-        if (n == 0) return 0;
-        int m = matrix[0].length;
-        int[][] matrix1 = new int[n][m];
-        for (int i = 0; i < m; i++) {
+        int m = matrix.length;
+        if (m == 0) {
+            return 0;
+        }
+        int n = matrix[0].length;
+        int[][] matrix1 = new int[m][n];
+        for (int i = 0; i < n; i++) {
             if (matrix[0][i] == '1') {
                 matrix1[0][i] = 1;
             }
         }
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] == '1')
+        for (int i = 1; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == '1') {
                     matrix1[i][j] = matrix1[i - 1][j] + 1;
+                }
             }
         }
         int ans = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix1[i][j] * m <= ans) continue;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix1[i][j] * n <= ans) continue;
                 if (matrix1[i][j] != 0) {
                     int cnt = 1;
-                    for (int k = j + 1; k < m; k++) {
-                        if (matrix1[i][k] < matrix1[i][j]) break;
+                    for (int k = j + 1; k < n; k++) {
+                        if (matrix1[i][k] < matrix1[i][j]) {
+                            break;
+                        }
                         cnt++;
                     }
                     for (int k = j - 1; k >= 0; k--) {
-                        if (matrix1[i][k] < matrix1[i][j]) break;
+                        if (matrix1[i][k] < matrix1[i][j]) {
+                            break;
+                        }
                         cnt++;
                     }
                     ans = Math.max(ans, cnt * matrix1[i][j]);
@@ -82,6 +98,13 @@ public class MaximalRectangle {
             }
         }
         return ans;
+    }
+
+    @Test
+    public void maximalRectangleTest() {
+        char[][] matrix = new char[][]{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}};
+        System.out.println(maximalRectangleDp(matrix));
+        System.out.println(maximalRectangle(matrix));
     }
 
 }

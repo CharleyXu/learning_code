@@ -1,5 +1,7 @@
 package com.xu.algorithm.backtrack;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 public class GenerateParenthesis {
 
     /**
-     * 回溯法
+     * 回溯
      */
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
@@ -41,6 +43,11 @@ public class GenerateParenthesis {
             backtrack(ans, cur, start, end + 1, max);
             cur.deleteCharAt(cur.length() - 1);
         }
+    }
+
+    @Test
+    public void generateParenthesisTest() {
+        System.out.println(generateParenthesis(3));
     }
 
 }
