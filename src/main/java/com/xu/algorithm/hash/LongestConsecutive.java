@@ -1,4 +1,4 @@
-package com.xu.algorithm.array;
+package com.xu.algorithm.hash;
 
 import java.util.HashMap;
 import java.util.HashSet;
