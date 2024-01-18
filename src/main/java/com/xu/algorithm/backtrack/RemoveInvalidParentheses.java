@@ -54,11 +54,11 @@ public class RemoveInvalidParentheses {
             return;
         }
         for (int i = start; i < s.length(); i++) {
-            // 跳过
+            // 剪枝
             if (i != start && s.charAt(i) == s.charAt(i - 1)) {
                 continue;
             }
-            // 如果剩余字符无法满足数量要求
+            // 剪枝，如果剩余字符无法满足数量要求
             if (left + right > s.length() - i) {
                 return;
             }

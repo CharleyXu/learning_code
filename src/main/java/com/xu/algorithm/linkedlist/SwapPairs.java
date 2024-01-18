@@ -1,6 +1,5 @@
 package com.xu.algorithm.linkedlist;
 
-import com.xu.algorithm.linkedlist.ListNode;
 import org.junit.Test;
 
 /**

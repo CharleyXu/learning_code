@@ -1,5 +1,7 @@
 package com.xu.algorithm.backtrack;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,36 +22,50 @@ import java.util.List;
  */
 public class GetPermutation {
 
-    String res = "";
-
+    /**
+     * 当 n = 3 时, 所有排列如下：
+     * <p>
+     * "123"
+     * "132"
+     * "213"
+     * "231"
+     * "312"
+     * "321"
+     * <p>
+     * 输入：n = 3, k = 3
+     * 输出："213"
+     * <p>
+     * 输入：n = 4, k = 9
+     * 输出："2314"
+     */
     public String getPermutation(int n, int k) {
-        List<Integer> list = new ArrayList<>();
-        dfs(n, k, 0, list);
-        return res;
+        return dfs(n, k, 0, new ArrayList<>());
     }
 
-    private void dfs(int n, int k, int depth, List<Integer> list) {
-        if (list.size() == n) {
+    private String dfs(int n, int k, int depth, List<Integer> state) {
+        if (state.size() == n) {
             StringBuilder str = new StringBuilder();
-            for (Integer num : list) {
+            for (Integer num : state) {
                 str.append(num);
             }
-            res = new String(str);
-            return;
+            return new String(str);
         }
+        // 当前的depth有多少排列数
         int cur = factorial(n - depth - 1);
         for (int i = 1; i <= n; i++) {
-            if (list.contains(i)) {
+            // 剪枝
+            if (state.contains(i)) {
                 continue;
             }
+            // 剪枝，当前的排列组合小于k，跳过该层并重新计算k值
             if (cur < k) {
                 k -= cur;
                 continue;
             }
-            list.add(i);
-            dfs(n, k, depth + 1, list);
+            state.add(i);
+            return dfs(n, k, depth + 1, state);
         }
-
+        return null;
     }
 
     /**
@@ -61,6 +77,13 @@ public class GetPermutation {
             res *= n--;
         }
         return res;
+    }
+
+    @Test
+    public void getPermutationTest() {
+        System.out.println(getPermutation(3, 3));
+        System.out.println(getPermutation(3, 6));
+        System.out.println(getPermutation(4, 9));
     }
 
 }

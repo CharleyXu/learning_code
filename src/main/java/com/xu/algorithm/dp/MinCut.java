@@ -18,22 +18,17 @@ import java.util.List;
  * 输入：s = "aab"
  * <p>
  * 输出：[["a","a","b"],["aa","b"]]
- *
- * <p>
- * 132 分割回文串 II
- * <p>
- * 给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。
- * <p>
- * 返回符合要求的 最少分割次数
  */
 public class MinCut {
 
     /**
-     * 分割回文串
+     * 131 分割回文串
      * <p>
      * 返回 s 所有可能的分割方案。
      * <p>
      * 回溯 + DP优化
+     * <p>
+     * 时间复杂度 O(n * 2的n次方)，预处理 O(n2)
      */
     public List<List<String>> partition(String s) {
         int n = s.length();
@@ -54,28 +49,28 @@ public class MinCut {
                 }
             }
         }
-        backtrack(s, 0, s.length(), dp, new ArrayList<>(), res);
+        backtrack(s, 0, dp, new ArrayList<>(), res);
         return res;
     }
 
-    private void backtrack(String s, int i, int len, boolean[][] dp, List<String> state, List<List<String>> res) {
+    private void backtrack(String s, int index, boolean[][] dp, List<String> state, List<List<String>> res) {
         // 记录解，停止搜索
-        if (i == len) {
+        if (index == s.length()) {
             res.add(new ArrayList<>(state));
             return;
         }
-        for (int j = i; j < len; j++) {
+        for (int i = index; i < s.length(); i++) {
             // 剪枝
 //            if (!checkPalindrome(s, i, j)) {
 //                continue;
 //            }
-            if (!dp[i][j]) {
+            if (!dp[index][i]) {
                 continue;
             }
             //尝试
-            state.add(s.substring(i, j + 1));
-            //
-            backtrack(s, j + 1, len, dp, state, res);
+            state.add(s.substring(index, i + 1));
+            // 进行下一轮选择
+            backtrack(s, i + 1, dp, state, res);
             // 回退
             state.remove(state.size() - 1);
         }
@@ -99,7 +94,11 @@ public class MinCut {
     }
 
     /**
-     * 分割回文串 II
+     * 132 分割回文串 II
+     * <p>
+     * 给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是回文。
+     * <p>
+     * 返回符合要求的最少分割次数
      */
     public int minCut(String s) {
         int n = s.length();
