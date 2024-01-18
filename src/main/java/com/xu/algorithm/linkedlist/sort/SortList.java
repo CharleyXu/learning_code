@@ -24,12 +24,12 @@ public class SortList extends BaseLinkedList {
             slow = slow.next;
         }
         // 存储中间节点的下一个节点
-        ListNode temp = slow.next;
+        ListNode cur = slow.next;
         // 从中间节点断开
         slow.next = null;
         // 返回排序后的头节点
         ListNode left = sortList(head);
-        ListNode right = sortList(temp);
+        ListNode right = sortList(cur);
         // 返回合并后的头节点
         return mergeListNode(left, right);
     }
