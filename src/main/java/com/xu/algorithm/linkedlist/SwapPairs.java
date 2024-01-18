@@ -1,4 +1,4 @@
-package com.xu.algorithm.medium;
+package com.xu.algorithm.linkedlist;
 
 import com.xu.algorithm.linkedlist.ListNode;
 import org.junit.Test;
@@ -6,29 +6,29 @@ import org.junit.Test;
 /**
  * @author charlie Created on 2018/2/28.
  * <p>
- * Swap Nodes in Pairs	交换对中的节点
+ * 24 两两交换链表中的节点
  * <p>
  * 给定一个链表，交换每两个相邻节点并返回其头部。 例如， 给定1-> 2-> 3-> 4，您应该返回列表2-> 1-> 4-> 3
  * <p>
- * 你的算法应该只使用恒定的空间。您不能修改列表中的值，只有节点本身可以更改。
+ * 你的算法应该只使用恒定的空间。您不能修改列表中的值，只有节点本身可以更改
+ * <p>
+ * 输入：head = [1,2,3,4]
+ * <p>
+ * 输出：[2,1,4,3]
  */
-public class No24 {
+public class SwapPairs {
 
     public ListNode swapPairs(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        //指向原指针Head
-        ListNode h = new ListNode(0);
-        h.next = head;
-        //pre 指向需要交换的pair的前面一个Node		p1 指向需要交换的pair的第一个Node
-        ListNode pre = h, p1 = head, p2 = head.next;
+        ListNode dummy = new ListNode(-1, head);
+        ListNode pre = dummy, p1 = head, p2 = head.next;
         while (p1 != null && p2 != null) {
             // swap
             pre.next = p2;
             p1.next = p2.next;
             p2.next = p1;
-
             // 指针后移
             pre = p1;
             p1 = p1.next;
@@ -36,7 +36,7 @@ public class No24 {
                 p2 = p1.next;
             }
         }
-        return h.next;
+        return dummy.next;
     }
 
     @Test
