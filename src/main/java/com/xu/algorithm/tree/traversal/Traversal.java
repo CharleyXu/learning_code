@@ -101,7 +101,7 @@ public class Traversal {
      */
     public List<Integer> inorderTraversalMorris(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        TreeNode predecessor = null;
+        TreeNode predecessor;
         while (root != null) {
             if (root.left != null) {
                 // predecessor 节点就是当前root节点向左走一步，一直向右走直至无法走为止
@@ -272,6 +272,44 @@ public class Traversal {
         }
         return list;
     }
+
+    /**
+     * 103 二叉树的锯齿形层序遍历
+     * <p>
+     * 给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     */
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean flag = false;
+        while (!queue.isEmpty()) {
+            int count = queue.size();
+            List<Integer> integers = new ArrayList<>();
+            while (count > 0) {
+                TreeNode treeNode = queue.poll();
+                if (flag) {
+                    integers.add(0, treeNode.val);
+                } else {
+                    integers.add(treeNode.val);
+                }
+                if (treeNode.left != null) {
+                    queue.offer(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    queue.offer(treeNode.right);
+                }
+                count--;
+            }
+            ans.add(integers);
+            flag = !flag;
+        }
+        return ans;
+    }
+
 
     /**
      * 107 二叉树的层序遍历，自底向上的层序遍历

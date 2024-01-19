@@ -17,30 +17,25 @@ import java.util.Arrays;
  * <p>
  * result: [1,2,3,4,7,8]
  * <p>
- * leetcode 86
  */
 public class MergeSortedArray {
 
     /**
      * 从尾部遍历,否则在 arr1 上归并得到的值会覆盖还未进行归并比较的值
      */
-    public void mergeSortedArray(int[] arr1, int m, int[] arr2, int n) {
-        int index1 = m - 1;
-        int index2 = n - 1;
-        int mergeIndex = m + n - 1;
-
-        while (index1 >= 0 || index2 >= 0) {
-            if (index1 < 0) {
-                arr1[mergeIndex--] = arr2[index2--];
-            } else if (index2 < 0) {
-                arr1[mergeIndex--] = arr1[index1--];
-            } else if (arr1[index1] > arr2[index2]) {
-                arr1[mergeIndex--] = arr1[index1--];
+    public void mergeSortedArray(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1;
+        int j = n - 1;
+        int idx = m + n - 1;
+        while (i >= 0 || j >= 0) {
+            if (i < 0) {
+                nums1[idx--] = nums2[j--];
+            } else if (j < 0) {
+                nums1[idx--] = nums1[i--];
             } else {
-                arr1[mergeIndex--] = arr2[index2--];
+                nums1[idx--] = nums1[i] > nums2[j] ? nums1[i--] : nums2[j--];
             }
         }
-
     }
 
     @Test

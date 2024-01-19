@@ -3,7 +3,7 @@ package com.xu.algorithm.tree;
 /**
  * Created by CharleyXu on 2020-04-30
  * <p>
- * 二叉树的最近公共祖先
+ * 236 二叉树的最近公共祖先
  * <p>
  * 所有节点的值都是唯一的
  * <p>
@@ -37,7 +37,15 @@ public class LowestCommonAncestor {
     }
 
     /**
-     * 二叉搜索树的最近公共祖先
+     * 235 二叉搜索树的最近公共祖先
+     * <p>
+     * 给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先
+     * <p>
+     * 当前节点的值大于 p 和 q 的值，说明 p 和 q 应该在当前节点的左子树
+     * <p>
+     * 如果当前节点的值小于 p 和 q 的值，说明 p 和 q 应该在当前节点的右子树，因此将当前节点移动到它的右子节点
+     * <p>
+     * 不满足上述两条要求，当前节点就是最近公共祖先
      */
     public TreeNode lowestCommonAncestorBST(TreeNode root, TreeNode p, TreeNode q) {
         if (root.val > p.val && root.val > q.val) {
@@ -47,6 +55,20 @@ public class LowestCommonAncestor {
         } else {
             return root;
         }
+    }
+
+    public TreeNode lowestCommonAncestorBST2(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode ancestor = root;
+        while (true) {
+            if (p.val < ancestor.val && q.val < ancestor.val) {
+                ancestor = ancestor.left;
+            } else if (p.val > ancestor.val && q.val > ancestor.val) {
+                ancestor = ancestor.right;
+            } else {
+                break;
+            }
+        }
+        return ancestor;
     }
 
 }

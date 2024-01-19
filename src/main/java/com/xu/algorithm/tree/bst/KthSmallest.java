@@ -10,7 +10,7 @@ import java.util.Deque;
 /**
  * Created by CharleyXu on 2020-06-02
  * <p>
- * 二叉搜索树中第K小的元素
+ * 230 二叉搜索树中第K小的元素
  */
 public class KthSmallest extends BaseTreeNode {
 

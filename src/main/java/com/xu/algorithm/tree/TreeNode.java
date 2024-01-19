@@ -10,11 +10,15 @@ import lombok.ToString;
 @ToString
 public class TreeNode {
 
-  public int val;
-  public TreeNode left = null;
-  public TreeNode right = null;
+    public int val;
+    public TreeNode left = null;
+    public TreeNode right = null;
 
-  public TreeNode(int val) {
-    this.val = val;
-  }
+    public TreeNode() {
+    }
+
+    public TreeNode(int val) {
+        this.val = val;
+    }
+
 }
