@@ -1,5 +1,6 @@
 package com.xu.algorithm.stack.monotone;
 
+import com.xu.algorithm.linkedlist.ListNode;
 import org.junit.Test;
 
 import java.util.ArrayDeque;
@@ -77,6 +78,61 @@ public class NextGreaterElement {
                 ans[stack.pop()] = nums[i % n];
             }
             stack.push(i % n);
+        }
+        return ans;
+    }
+
+    /**
+     * 1019 链表中的下一个更大节点
+     * <p>
+     * 对于列表中的每个节点，查找下一个 更大节点 的值
+     * <p>
+     * 返回一个整数数组 answer ，其中 answer[i] 是第 i 个节点( 从1开始 )的下一个更大的节点的值。如果第 i 个节点没有下一个更大的节点，设置 answer[i] = 0
+     * <p>
+     * 输入：head = [2,7,4,3,5]
+     * <p>
+     * 输出：[7,0,5,5,0]
+     * <p>
+     * 时间复杂度 O(N)
+     * <p>
+     */
+    public int[] nextLargerNodes(ListNode head) {
+        int n = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            n++;
+        }
+        int[] ans = new int[n];
+        // 维护一个单调递减栈（节点值、节点下标）
+        Deque<int[]> deque = new ArrayDeque<>();
+        int i = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            while (!deque.isEmpty() && deque.peek()[0] < cur.val) {
+                ans[deque.pop()[1]] = cur.val;
+            }
+            deque.push(new int[]{cur.val, i++});
+        }
+        return ans;
+    }
+
+    public int[] nextLargerNodes2(ListNode head) {
+        int n = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            n++;
+        }
+        int[] ans = new int[n];
+        // 维护一个单调递减栈
+        Deque<Integer> deque = new ArrayDeque<>();
+        int i = 0;
+        for (ListNode cur = head; cur != null; cur = cur.next) {
+            while (!deque.isEmpty() && ans[deque.peek()] < cur.val) {
+                ans[deque.pop()] = cur.val;
+            }
+            deque.push(i);
+            ans[i++] = cur.val;
+        }
+        // 在循环结束后，栈中下标对应元素是没有下一个更大元素的，所以要把栈中的下标对应的ans置为 0。
+        for (Integer idx : deque) {
+            ans[idx] = 0;
         }
         return ans;
     }
