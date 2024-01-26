@@ -6,7 +6,11 @@ import java.util.Queue;
 /**
  * Created by CharleyXu on 2024/1/4
  * <p>
- * 532 01矩阵
+ * 542 01 矩阵
+ * <p>
+ * 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的距离。
+ * <p>
+ * 两个相邻元素间的距离为 1
  */
 public class UpdateMatrix {
 
@@ -52,6 +56,10 @@ public class UpdateMatrix {
      * f(i,j) = 0, matrix[i][j] = 0；
      * <p>
      * f(i,j) = min(f(i-1,j)，f(i,j-1)，f(i+1,j)，f(i,j+1)) matrix[i][j] = 1；
+     * <p>
+     * 定义dp[m][n]，其中dp[i][j]表示坐标（i，j）离他最近的0的距离。
+     * <p>
+     * 如果要计算坐标（i，j）离他最近的0的距离，那么这个距离肯定要经过他的上下左右4个方向中的一个，我们取最小的即可
      */
     public int[][] updateMatrixDp(int[][] mat) {
         int m = mat.length, n = mat[0].length;
