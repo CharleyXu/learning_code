@@ -155,8 +155,12 @@ public class FindTargetSumWays {
      */
     public int findTargetSumWays01(int[] nums, int target) {
         int sum = target;
-        for (int num : nums) sum += num;
-        if ((sum & 1) == 1 || sum < 0) return 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if ((sum & 1) == 1 || sum < 0) {
+            return 0;
+        }
         int[][] dp = new int[nums.length][sum / 2 + 1];
         // 注意：dp[0][0] 表示为递归树中的叶节点，表示考虑完nums中所有数且target已经为0的情况(即找到了一个解)，所以dp[0][0]需要初始化为1
         dp[0][0] = 1;

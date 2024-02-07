@@ -1,5 +1,7 @@
 package com.xu.algorithm.binary.slidingwindow;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 
 /**
@@ -34,15 +36,30 @@ public class MinSubArrayLen {
             return 0;
         }
         int ans = Integer.MAX_VALUE;
-        int start = 0, end = 0, sum = 0;
-        while (end < n) {
-            sum += nums[end];
+        int left = 0, right = 0, sum = 0;
+        while (right < n) {
+            sum += nums[right++];
             while (sum >= target) {
-                ans = Math.min(ans, end - start + 1);
-                sum = sum - nums[start];
-                start++;
+                ans = Math.min(ans, right - left);
+                sum = sum - nums[left++];
             }
-            end++;
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+    public int minSubArrayLenSliding2(int target, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int left = 0, right = 0, sum = 0;
+        while (right < n) {
+            target -= nums[right++];
+            while (target <= 0) {
+                ans = Math.min(ans, right - left);
+                target += nums[left++]; // 移除左边界
+            }
         }
         return ans == Integer.MAX_VALUE ? 0 : ans;
     }
@@ -68,6 +85,13 @@ public class MinSubArrayLen {
             }
         }
         return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
+    @Test
+    public void minSubArrayLenSlidingTest() {
+        int target = 7;
+        int[] nums = new int[]{2, 3, 1, 2, 4, 3};
+        System.out.println(minSubArrayLenSliding(target, nums));
     }
 
 }
