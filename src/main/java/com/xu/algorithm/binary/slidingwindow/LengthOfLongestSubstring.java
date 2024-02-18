@@ -19,7 +19,7 @@ import java.util.Set;
 public class LengthOfLongestSubstring {
 
     /**
-     * 3. 没有重复字符的子字符的最大子串长度
+     * 3. 最长无重复子串
      * <p>
      * 给一个字符串，获得没有重复字符的最长子字符的长度
      *

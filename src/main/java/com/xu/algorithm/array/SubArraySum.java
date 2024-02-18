@@ -1,5 +1,7 @@
 package com.xu.algorithm.array;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +45,13 @@ public class SubArraySum {
             map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
         return count;
+    }
+
+    @Test
+    public void test() {
+        int[] arr = {1, 2, 2, 3, 4, 5, 7, 8, 9, 10};
+        int num = 12;
+        System.out.println(subarraySum(arr, num));
     }
 
 }
