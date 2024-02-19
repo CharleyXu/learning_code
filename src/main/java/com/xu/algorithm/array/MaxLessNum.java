@@ -51,9 +51,8 @@ public class MaxLessNum {
             return false;
         }
         for (int i = nums.length - 1; i >= 0; i--) {
-            int digit = s.charAt(state.size()) - '0';
             // 如果上一个数字相等的话，并且当前数字大于n对应的位的话，剪枝
-            if (isEqual && nums[i] > digit) {
+            if (isEqual && nums[i] > s.charAt(state.size()) - '0') {
                 continue;
             }
             // 尝试
@@ -75,6 +74,7 @@ public class MaxLessNum {
         int[] nums3 = new int[]{1, 2, 4, 3};
         System.out.println(maxLessNum(nums, 322220));
         System.out.println(maxLessNum(nums2, 1111));
+        System.out.println(maxLessNum(nums2, 9420));
         System.out.println(maxLessNum(nums3, 578));
     }
 

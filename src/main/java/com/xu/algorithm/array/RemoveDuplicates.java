@@ -15,6 +15,12 @@ public class RemoveDuplicates {
 
     /**
      * reserved，非nums[start - 1] 坐过来
+     * <p>
+     * 26 删除有序数组中的重复项
+     * <p>
+     * 给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。
+     * <p>
+     * 元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数
      */
     private int removeDuplicates(int[] nums) {
         int start = 1;
@@ -29,25 +35,27 @@ public class RemoveDuplicates {
     }
 
     /**
-     * 双指针
+     * 27 移除元素
      * <p>
-     * start指针，保留有效数组中的位置，"上新"，为未来reserve一个位置
+     * 返回移除后数组的新长度
      * <p>
-     * i扫描数组，扫旧
+     * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
      * <p>
-     * 满足要求，不等于nums[start - 2]的坐过来，nums[start] = nums[i]
-     *
-     * <p>
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素
      */
-    private int removeDuplicatesTwoElement(int[] nums) {
-        int start = 2;
-        for (int i = 2; i < nums.length; i++) {
-            if (nums[i] != nums[start - 2]) {
-                nums[start] = nums[i];
-                start++;
+    public int removeElement(int[] arr, int val) {
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        int i = 0, index = 0;
+        while (i < arr.length) {
+            if (arr[i] != val) {
+                arr[index++] = arr[i++];
+            } else {
+                i++;
             }
         }
-        return start;
+        return index;
     }
 
     @Test
@@ -56,7 +64,7 @@ public class RemoveDuplicates {
         int[] ints = Arrays.copyOf(arr, arr.length);
         int num = removeDuplicates(arr);
         System.out.println(num);
-        int result = removeDuplicatesTwoElement(ints);
+        int result = removeElement(ints, 5);
         System.out.println(result);
     }
 

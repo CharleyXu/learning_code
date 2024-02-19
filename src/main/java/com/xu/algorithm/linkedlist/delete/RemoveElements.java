@@ -9,6 +9,9 @@ import com.xu.algorithm.linkedlist.ListNode;
  */
 public class RemoveElements {
 
+    /**
+     * 203. 移除链表元素
+     */
     public ListNode removeElements(ListNode head, int val) {
         ListNode dummy = new ListNode(-1, head);
         ListNode fast = head;
@@ -22,6 +25,14 @@ public class RemoveElements {
             fast = fast.next;
         }
         return dummy.next;
+    }
+
+    /**
+     * 237. 删除链表中的节点
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
     }
 
     /**

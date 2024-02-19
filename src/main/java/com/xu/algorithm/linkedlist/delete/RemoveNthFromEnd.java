@@ -20,8 +20,7 @@ public class RemoveNthFromEnd extends BaseLinkedList {
         if (head == null || n < 1) {
             return head;
         }
-        ListNode dummy = new ListNode(-1);
-        dummy.next = head;
+        ListNode dummy = new ListNode(-1, head);
         ListNode slow = dummy;
         ListNode fast = dummy;
         for (int i = 0; i < n; i++) {

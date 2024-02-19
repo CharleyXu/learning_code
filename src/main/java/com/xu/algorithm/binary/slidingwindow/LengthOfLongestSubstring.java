@@ -37,8 +37,7 @@ public class LengthOfLongestSubstring {
             //窗口的左边是i，右边是j，下列算法将窗口的左右移动，截取出其中一段
             // try to extend the range [i, j]
             if (!characterSet.contains(s.charAt(j))) {
-                characterSet.add(s.charAt(j));
-                j++;
+                characterSet.add(s.charAt(j++));
                 ans = Math.max(ans, j - i);
             } else {
                 characterSet.remove(s.charAt(i++));
