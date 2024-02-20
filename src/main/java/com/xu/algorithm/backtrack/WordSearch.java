@@ -29,7 +29,7 @@ public class WordSearch {
      * 时间复杂度 O(m * n * 3的k次方)
      */
     public boolean exist(char[][] board, String word) {
-        if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.length() == 0) {
+        if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.isEmpty()) {
             return false;
         }
         int rows = board.length;
