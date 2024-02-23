@@ -23,7 +23,7 @@ public class FindMin {
      * nums[mid]和nums[n - 1]的关系来决定收缩左右空间。
      */
     public int findMin(int[] nums) {
-        int l = 0, r = nums.length - 1, len = r;
+        int len = nums.length - 1,l = 0,  r = len;
         while (l < r) {
             int m = l + r >> 1;
             if (nums[m] > nums[len]) {

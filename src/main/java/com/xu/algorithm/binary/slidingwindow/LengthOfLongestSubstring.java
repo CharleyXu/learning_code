@@ -28,7 +28,7 @@ public class LengthOfLongestSubstring {
      */
     public int lengthOfLongestSubstring(String s) {
         if (s == null || s.isEmpty()) {
-            return -1;
+            return 0;
         }
         Set<Character> characterSet = new HashSet<>();
         int i = 0, j = 0, ans = 0;
