@@ -63,7 +63,7 @@ public class Traversal {
         while (root != null || !deque.isEmpty()) {
             while (root != null) {
                 res.add(root.val);
-                deque.offer(root);
+                deque.push(root);
                 root = root.left;
             }
             root = deque.pop();
@@ -348,6 +348,7 @@ public class Traversal {
 
     @Test
     public void inOrder() {
+        inOrderRecur(BaseTree.root);
         System.out.println(inorderTraversal(BaseTree.root));
         System.out.println(inorderTraversalMorris(BaseTree.root));
     }
