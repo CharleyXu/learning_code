@@ -27,6 +27,27 @@ public class LengthOfLongestSubstring {
      * 例子： 输入："abcabcbb" 输出：3
      */
     public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int i = -1, ans = 0;
+        for (int j = 0; j < s.length(); j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(i, map.get(s.charAt(j)));
+            }
+            map.put(s.charAt(j), j);
+            ans = Math.max(ans, j - i);
+        }
+        return ans;
+    }
+
+    /**
+     * 3. 最长无重复子串
+     * <p>
+     * 给一个字符串，获得没有重复字符的最长子字符的长度
+     *
+     * <p>
+     * 例子： 输入："abcabcbb" 输出：3
+     */
+    public int lengthOfLongestSubstring2(String s) {
         if (s == null || s.isEmpty()) {
             return 0;
         }
@@ -42,24 +63,6 @@ public class LengthOfLongestSubstring {
             } else {
                 characterSet.remove(s.charAt(i++));
             }
-        }
-        return ans;
-    }
-
-
-    public int lengthOfLongestSubstring2(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        int ans = 0;
-        for (int start = 0, end = 0; end < s.length(); end++) {
-            char right = s.charAt(end);
-            map.put(right, map.getOrDefault(right, 0) + 1);
-            //
-            while (map.get(right) > 1) {
-                char left = s.charAt(start);
-                map.put(left, map.get(left) - 1);
-                start++;
-            }
-            ans = Math.max(ans, end - start + 1);
         }
         return ans;
     }
