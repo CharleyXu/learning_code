@@ -1,4 +1,6 @@
-package com.xu.algorithm.tree;
+package com.xu.algorithm.tree.bst;
+
+import com.xu.algorithm.tree.TreeNode;
 
 /**
  * Created by CharleyXu on 2020-04-30
