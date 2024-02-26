@@ -24,10 +24,20 @@ public class InvertTree {
         return root;
     }
 
-    private void swap(TreeNode root) {
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
+    public TreeNode invertTree2(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            swap(node);
+        }
+        return root;
     }
 
     /**
@@ -46,5 +56,11 @@ public class InvertTree {
                 stack.push(node.right);
             }
         }
+    }
+
+    private void swap(TreeNode root) {
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
     }
 }

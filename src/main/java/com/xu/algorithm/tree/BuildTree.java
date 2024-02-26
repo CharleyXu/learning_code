@@ -1,5 +1,7 @@
 package com.xu.algorithm.tree;
 
+import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +9,8 @@ import java.util.Map;
  * Created by CharleyXu on 2023/12/7
  * <p>
  * 105 从前序和中序遍历序列中构建二叉树
+ * <p>
+ * 给定两个整数数组 preorder 和 inorder ，其中 preorder 是二叉树的先序遍历， inorder 是同一棵树的中序遍历，请构造二叉树并返回其根节点
  */
 public class BuildTree {
 
@@ -47,6 +51,25 @@ public class BuildTree {
         root.right = dfs(preorder, inorderMap, preStart + leftCnt + 1, preEnd, rootIdx + 1);
         // 返回根节点
         return root;
+    }
+
+    /**
+     * <pre>
+     *    3
+     * 9    20
+     *   15   7
+     * </pre>
+     * <p>
+     * 输入: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+     * <p>
+     * 输出: [3,9,20,null,null,15,7]
+     */
+    @Test
+    public void buildTreeTest() {
+        int[] preorder = new int[]{3, 9, 20, 15, 7};
+        int[] inorder = new int[]{9, 3, 15, 20, 7};
+        TreeNode treeNode = buildTree(preorder, inorder);
+        System.out.println(treeNode);
     }
 
 }
