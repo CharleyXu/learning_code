@@ -17,8 +17,9 @@ public class SortList extends BaseLinkedList {
         }
         // 归并
         // 快慢指针，找到中间节点
-        ListNode slow = head;
-        ListNode fast = head.next;
+        ListNode dummy = new ListNode(-1, head);
+        ListNode slow = dummy;
+        ListNode fast = dummy;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
@@ -28,7 +29,7 @@ public class SortList extends BaseLinkedList {
         // 从中间节点断开
         slow.next = null;
         // 返回排序后的头节点
-        ListNode left = sortList(head);
+        ListNode left = sortList(dummy.next);
         ListNode right = sortList(cur);
         // 返回合并后的头节点
         return mergeListNode(left, right);
