@@ -17,8 +17,7 @@ public class ReverseBetween extends BaseLinkedList {
      * 1 ≤ m ≤ n ≤ 链表长度
      */
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        ListNode dummy = new ListNode(1);
-        dummy.next = head;
+        ListNode dummy = new ListNode(1, head);
         ListNode pre = dummy;
         // 遍历至m的前一个节点
         for (int i = 1; i < m; i++) {

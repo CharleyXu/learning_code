@@ -79,8 +79,8 @@ public class IsPalindromeListNode {
 
     @Test
     public void isPalindromeTest() {
-//        System.out.println(isPalindrome(head));
-        System.out.println(isPalindrome2(head));
+        System.out.println(isPalindrome(head));
+//        System.out.println(isPalindrome2(head));
     }
 
     ListNode node5 = new ListNode(1, null);

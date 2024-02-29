@@ -47,10 +47,8 @@ public class Rotate {
     private void reverse(int[] nums, int start, int end) {
         while (start < end) {
             int temp = nums[start];
-            nums[start] = nums[end];
-            nums[end] = temp;
-            start++;
-            end--;
+            nums[start++] = nums[end];
+            nums[end--] = temp;
         }
     }
 
@@ -74,6 +72,9 @@ public class Rotate {
         }
     }
 
+    /**
+     * 求最大公约数
+     */
     public int gcd(int x, int y) {
         return y > 0 ? gcd(y, x % y) : x;
     }
