@@ -41,8 +41,8 @@ public class MergeKLists {
         if (a == null || b == null) {
             return a != null ? a : b;
         }
-        ListNode head = new ListNode(0);
-        ListNode curr = head, aPtr = a, bPtr = b;
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy, aPtr = a, bPtr = b;
         while (aPtr != null && bPtr != null) {
             if (aPtr.val < bPtr.val) {
                 curr.next = aPtr;
@@ -54,7 +54,7 @@ public class MergeKLists {
             curr = curr.next;
         }
         curr.next = (aPtr != null ? aPtr : bPtr);
-        return head.next;
+        return dummy.next;
     }
 
     /**

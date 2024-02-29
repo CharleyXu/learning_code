@@ -1,65 +1,122 @@
 package com.xu.algorithm.hash;
 
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @author CharleyXu Created on 2019/3/18.
+ * Created by CharleyXu on 2020-08-01
+ * <p>
+ * hashMap + 双向链表
+ * <p>
+ * 头插法
  */
-public class LRUCache<K, V> {
+public class LRUCache {
 
-  private LinkedHashMap<K, V> linkedHashMap;
-  private int size;
-  private float loadFactor = 0.75F;
+    private Map<Integer, LinkedNode> cache = new HashMap<>();
+    private int size;
+    private int capacity;
+    private LinkedNode head, tail;
 
-  public LRUCache(int maxSize) {
-    this.size = maxSize;
-    //  +1确保当达到size上限时不会触发hashMap的扩容,其实在lruCache这里意义不大
-    int capacity = (int) Math.ceil(maxSize / loadFactor) + 1;
-    this.linkedHashMap = new LinkedHashMap<K, V>(capacity, loadFactor, true) {
-      @Override
-      protected boolean removeEldestEntry(Entry eldest) {
-        return size() > size;
-      }
-    };
+    private LRUCache(int capacity) {
+        this.capacity = capacity;
+        // 使用伪头部和伪尾部节点
+        head = new LinkedNode();
+        tail = new LinkedNode();
+        head.next = tail;
+        tail.prev = head;
+    }
 
-  }
+    public int get(int key) {
+        LinkedNode node = cache.get(key);
+        if (node == null) return -1;
+        moveToHead(node);
+        return node.value;
+    }
 
-  public V get(K k) {
-    return linkedHashMap.get(k);
-  }
+    public void put(int key, int value) {
 
-  public void put(K k, V v) {
-    linkedHashMap.put(k, v);
-  }
+        LinkedNode node = cache.get(key);
 
-  public int size() {
-    return linkedHashMap.size();
-  }
+        if (node == null) {
+            LinkedNode newNode = new LinkedNode(key, value);
+            cache.put(key, newNode);
+            addToHead(newNode);
+            ++size;
+            if (size > capacity) {
+                LinkedNode tail = popTail();
+                cache.remove(tail.key);
+                --size;
+            }
+        } else {
+            node.value = value;
+            moveToHead(node);
+        }
+    }
 
-  public boolean isEmpty() {
-    return linkedHashMap.isEmpty();
-  }
+    private void moveToHead(LinkedNode node) {
+        removeNode(node);
+        addToHead(node);
+    }
 
-  public void remove(V v) {
-    linkedHashMap.remove(v);
-  }
+    /**
+     * 新插入的元素或者命中的元素往头部移动，尾部的元素即是最近最少使用
+     */
+    private void addToHead(LinkedNode node) {
+        node.prev = head;
+        node.next = head.next;
+        head.next.prev = node;
+        head.next = node;
+    }
 
-  public String toString() {
-    return linkedHashMap.toString();
-  }
+    private void removeNode(LinkedNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
 
-  public static void main(String[] args) {
-    LRUCache<String, String> lruCache = new LRUCache<String, String>(5);
-    lruCache.put("1", "a");
-    lruCache.put("2", "b");
-    lruCache.put("3", "c");
-    lruCache.put("4", "d");
-    lruCache.put("5", "e");
-    System.out.println(lruCache);
-    System.out.println(lruCache.get("1"));
-    lruCache.put("6", "f");
-    System.out.println(lruCache);
-  }
+    private LinkedNode popTail() {
+        LinkedNode res = tail.prev;
+        removeNode(res);
+        return res;
+    }
+
+    @Override
+    public String toString() {
+        return cache.toString();
+    }
+
+    class LinkedNode {
+        int key;
+        int value;
+        LinkedNode prev;
+        LinkedNode next;
+
+        public LinkedNode() {
+
+        }
+
+        public LinkedNode(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        LRUCache map = new LRUCache(5);
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 3);
+        map.put(4, 4);
+        map.put(5, 5);
+        map.put(6, 6);
+        System.out.println(map.get(6));
+        System.out.println(map.get(1));
+        map.put(6, 10);
+        map.get(2);
+        map.put(7, 7);
+        map.get(4);
+        System.out.println(map.get(6));
+    }
+
 
 }
