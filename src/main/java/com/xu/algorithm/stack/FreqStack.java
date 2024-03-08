@@ -1,12 +1,14 @@
 package com.xu.algorithm.stack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by CharleyXu on 2020-08-13
  * <p>
- * 最大频率栈
+ * 895 最大频率栈
  * <p>
  * 实现 FreqStack，模拟类似栈的数据结构的操作的一个类。
  * <p>
@@ -30,31 +32,26 @@ import java.util.Map;
  */
 public class FreqStack {
 
-    private Map<Integer, Integer> freq;
-    private Map<Integer, Stack<Integer>> group;
-    private int maxFreq;
+    private Map<Integer, Integer> freq = new HashMap<>();
+    private Map<Integer, List<Integer>> group = new HashMap<>();
+    private int max = 0;
 
-    public FreqStack() {
-        freq = new HashMap();
-        group = new HashMap();
-        maxFreq = 0;
-    }
-
-    public void push(int x) {
-        int f = freq.getOrDefault(x, 0) + 1;
-        freq.put(x, f);
-        if (f > maxFreq) {
-            maxFreq = f;
-        }
-        group.computeIfAbsent(f, z -> new Stack()).push(x);
+    public void push(int val) {
+        int f = freq.getOrDefault(val, 0) + 1;
+        freq.put(val, f);
+        List<Integer> list = group.getOrDefault(f, new ArrayList<>());
+        list.add(val);
+        group.put(f, list);
+        max = Math.max(max, f);
     }
 
     public int pop() {
-        int x = group.get(maxFreq).pop();
-        freq.put(x, freq.get(x) - 1);
-        if (group.get(maxFreq).size() == 0) {
-            maxFreq--;
+        List<Integer> list = group.get(max);
+        int ans = list.remove(list.size() - 1);
+        freq.put(ans, freq.get(ans) - 1);
+        if (list.isEmpty()) {
+            max--;
         }
-        return x;
+        return ans;
     }
 }

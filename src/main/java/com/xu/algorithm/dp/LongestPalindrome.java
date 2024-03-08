@@ -5,18 +5,19 @@ import org.junit.Test;
 /**
  * Created by CharleyXu on 2023/11/17
  * <p>
- * 最长回文子串
+ * 5. 最长回文子串
  */
 public class LongestPalindrome {
 
     @Test
     public void longestPalindromeTest() {
-        System.out.println(longestPalindrome("efe"));
-        System.out.println(longestPalindrome2("efe"));
+        System.out.println(longestPalindrome("efafea"));
+        System.out.println(longestPalindrome2("efafea"));
     }
 
     /**
      * DP
+     * O(N2)
      */
     public String longestPalindrome(String s) {
         String res = "";
@@ -48,6 +49,7 @@ public class LongestPalindrome {
      * aba 有5个中心点，分别是 a、b、c、ab、ba
      * <p>
      * 中心点即 left 指针和 right 指针初始化指向的地方，可能是一个也可能是两个
+     *  O(N2)
      */
     public String longestPalindrome2(String s) {
         int n = s.length();
