@@ -13,20 +13,22 @@ import java.util.Set;
 public class HasCycle {
 
     /**
+     * 141. 环形链表
+     * <p>
      * java双指针 fast一次走两个，slow走一个，当两个相遇则有环
      */
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null) {
             return false;
         }
-        ListNode fast = head.next;
         ListNode slow = head;
-        while (fast != slow) {
-            if (fast.next == null || fast.next.next == null) {
+        ListNode fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
                 return false;
             }
-            fast = fast.next.next;
             slow = slow.next;
+            fast = fast.next.next;
         }
         return true;
     }
