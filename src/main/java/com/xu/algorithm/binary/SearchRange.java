@@ -69,7 +69,7 @@ public class SearchRange {
             } else {
                 res = middle;
                 // 继续在右侧寻找
-                left = res + 1;
+                left = middle + 1;
             }
         }
         return res;

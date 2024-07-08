@@ -40,10 +40,50 @@ public class MergeIntervals {
         return list.toArray(new int[list.size()][]);
     }
 
+    /**
+     * 57 插入区间
+     * <p>
+     * 给你一个 无重叠的 ，按照区间起始端点排序的区间列表 intervals，其中 intervals[i] = [starti, endi] 表示第 i 个区间的开始和结束，并且 intervals 按照 starti 升序排列。同样给定一个区间 newInterval = [start, end] 表示另一个区间的开始和结束。
+     * <p>
+     * 在 intervals 中插入区间 newInterval，使得 intervals 依然按照 starti 升序排列，且区间之间不重叠（如果有必要的话，可以合并区间）。
+     * <p>
+     * 返回插入之后的 intervals。
+     * <p>
+     * 注意 你不需要原地修改 intervals。你可以创建一个新数组然后返回它。
+     */
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> ans = new ArrayList<>();
+        for (int[] interval : intervals) {
+            if (newInterval == null || interval[1] < newInterval[0]) {
+                ans.add(interval);
+            } else if (interval[0] > newInterval[1]) {
+                ans.add(newInterval);
+                ans.add(interval);
+                newInterval = null;
+            } else {
+                // 合并区间
+                newInterval[0] = Math.min(interval[0], newInterval[0]);
+                newInterval[1] = Math.max(interval[1], newInterval[1]);
+            }
+        }
+        // 如果合并之后的区间没有保存下来
+        if (newInterval != null) {
+            ans.add(newInterval);
+        }
+        return ans.toArray(new int[ans.size()][]);
+    }
+
     @Test
     public void mergeIntervalsTest() {
         int[][] intervals = new int[][]{{1, 2}, {2, 3}, {3, 4}, {1, 3}};
         System.out.println(Arrays.deepToString(merge(intervals)));
+    }
+
+    @Test
+    public void insertIntervalsTest() {
+        int[][] intervals = new int[][]{{1, 3}, {6, 9}};
+        int[] newInterval = new int[]{2, 5};
+        System.out.println(Arrays.deepToString(insert(intervals, newInterval)));
     }
 
 }

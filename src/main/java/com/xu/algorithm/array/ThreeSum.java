@@ -34,7 +34,7 @@ public class ThreeSum {
             }
             int left = i + 1, right = n - 1;
             while (left < right) {
-                while (left > i + 1 && left < n && nums[left] == nums[left - 1]) {
+                while (left > i + 1 && left < right && nums[left] == nums[left - 1]) {
                     left++;
                 }
                 if (left >= right) {
