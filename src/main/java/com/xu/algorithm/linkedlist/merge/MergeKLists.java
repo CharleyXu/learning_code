@@ -1,7 +1,9 @@
 package com.xu.algorithm.linkedlist.merge;
 
 import com.xu.algorithm.linkedlist.ListNode;
+import org.junit.Test;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -37,59 +39,66 @@ public class MergeKLists {
      * <p>
      * 空间复杂度：O(1)O(1) 。我们只需要常数的空间存放若干变量。
      */
-    public ListNode mergeTwoLists(ListNode a, ListNode b) {
-        if (a == null || b == null) {
-            return a != null ? a : b;
-        }
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy, aPtr = a, bPtr = b;
-        while (aPtr != null && bPtr != null) {
-            if (aPtr.val < bPtr.val) {
-                curr.next = aPtr;
-                aPtr = aPtr.next;
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode();
+        ListNode curr = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
             } else {
-                curr.next = bPtr;
-                bPtr = bPtr.next;
+                curr.next = l2;
+                l2 = l2.next;
             }
             curr = curr.next;
         }
-        curr.next = (aPtr != null ? aPtr : bPtr);
+        curr.next = (l1 != null ? l1 : l2);
         return dummy.next;
     }
 
     /**
-     * 使用优先级队列
+     * 使用小根堆对 1 进行优化，每次 O(logK) 比较 K个指针求 min, 时间复杂度：O(NlogK)
      */
-    static class Status {
-        int val;
-        ListNode ptr;
-
-        Status(int val, ListNode ptr) {
-            this.val = val;
-            this.ptr = ptr;
-        }
-    }
-
-    PriorityQueue<Status> queue = new PriorityQueue<Status>((v1, v2) -> v1.val - v2.val);
-
     public ListNode mergeKLists2(ListNode[] lists) {
+        // 创建最小堆
+        PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(node -> node.val));
+        // 创建虚拟节点
+        ListNode dummy = new ListNode();
+        // 尾节点
+        ListNode tail = dummy;
         for (ListNode node : lists) {
             if (node != null) {
-                queue.offer(new Status(node.val, node));
+                priorityQueue.add(node);
             }
         }
-        ListNode head = new ListNode(0);
-        ListNode tail = head;
-        while (!queue.isEmpty()) {
-            Status f = queue.poll();
-            tail.next = f.ptr;
+        while (!priorityQueue.isEmpty()) {
+            tail.next = priorityQueue.poll();
             tail = tail.next;
-            if (f.ptr.next != null) {
-                queue.offer(new Status(f.ptr.next.val, f.ptr.next));
+            // 如果链表不为空，重新添加到堆中
+            if (tail.next != null) {
+                priorityQueue.add(tail.next);
             }
         }
-        return head.next;
+        return dummy.next;
     }
 
+    @Test
+    public void mergeKListsTest() {
+//        ListNode listNode = mergeKLists(new ListNode[]{node1, node4, node7});
+//        System.out.println(listNode);
+        ListNode listNode2 = mergeKLists2(new ListNode[]{node1, node4, node7});
+        System.out.println(listNode2);
+    }
+
+    ListNode node8 = new ListNode(6, null);
+    ListNode node7 = new ListNode(2, node8);
+
+    ListNode node6 = new ListNode(4, null);
+    ListNode node5 = new ListNode(3, node6);
+    ListNode node4 = new ListNode(1, node5);
+
+    ListNode node3 = new ListNode(5, null);
+    ListNode node2 = new ListNode(4, node3);
+    ListNode node1 = new ListNode(1, node2);
 
 }
