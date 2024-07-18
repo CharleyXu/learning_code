@@ -3,7 +3,7 @@ package com.xu.algorithm.array;
 /**
  * Created by CharleyXu on 2020-06-10
  * <p>
- * 最长公共前缀
+ * 14 最长公共前缀
  * <p>
  * 查找字符串数组中的最长公共前缀
  */

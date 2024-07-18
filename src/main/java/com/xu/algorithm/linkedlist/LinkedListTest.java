@@ -1,11 +1,10 @@
 package com.xu.algorithm.linkedlist;
 
 import com.google.common.base.Stopwatch;
+import org.junit.Test;
 
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.Test;
 
 /**
  * @author charlie Created on 2017/12/19.
@@ -228,55 +227,6 @@ public class LinkedListTest extends BaseLinkedList {
         }
     }
 
-
-    /**
-     * 合并两个有序的单链表，合并之后的链表依然有序
-     */
-    public ListNode mergeListNode(ListNode head1, ListNode head2) {
-        if (head1 == null && head2 == null) {
-            return null;
-        }
-        if (head1 == null) {
-            return head2;
-        }
-        if (head2 == null) {
-            return head1;
-        }
-        //新链表的头结点
-        ListNode head = null;
-        //current结点指向新链表
-        ListNode current = null;
-        if (head1.val < head2.val) {
-            head = head1;
-            current = head1;
-            head1 = head1.next;
-        } else {
-            head = head2;
-            current = head2;
-            head2 = head2.next;
-        }
-        while (head1 != null && head2 != null) {
-            if (head1.val < head2.val) {
-                //current指针的下一个结点对应较小的数据
-                current.next = head1;
-                //current和head1指针下移
-                current = current.next;
-                head1 = head1.next;
-            } else {
-                current.next = head2;
-                current = current.next;
-                head2 = head2.next;
-            }
-        }
-        if (head1 != null) {
-            current.next = head1;
-        }
-        if (head2 != null) {
-            current.next = head2;
-        }
-        return head;
-    }
-
     /**
      * 获取链表长度
      */
@@ -318,4 +268,5 @@ public class LinkedListTest extends BaseLinkedList {
             node = node.next;
         }
     }
+
 }

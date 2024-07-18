@@ -9,7 +9,7 @@ import java.util.Deque;
 /**
  * @author CharleyXu Created on 2019/3/17
  * <p>
- * 删除数组中的重复项
+ * 26. 删除数组中的重复项
  */
 public class RemoveDuplicates {
 
@@ -26,8 +26,7 @@ public class RemoveDuplicates {
         int start = 1;
         for (int i = 1; i < nums.length; i++) {
             if (nums[i] != nums[start - 1]) {
-                nums[start] = nums[i];
-                start++;
+                nums[start++] = nums[i];
             }
         }
         return start;
@@ -66,6 +65,23 @@ public class RemoveDuplicates {
         System.out.println(num);
         int result = removeElement(ints, 5);
         System.out.println(result);
+    }
+
+    /**
+     * 80. 删除有序数组中的重复项 II
+     * <p>
+     * 给你一个有序数组 nums ，请你 原地 删除重复出现的元素，使得出现次数超过两次的元素只出现两次 ，返回删除后数组的新长度。
+     * <p>
+     * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成
+     */
+    public int removeDuplicates2(int[] nums) {
+        int start = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[start - 2]) {
+                nums[start++] = nums[i];
+            }
+        }
+        return start;
     }
 
     /**

@@ -3,7 +3,7 @@ package com.xu.algorithm.linkedlist;
 /**
  * Created by CharleyXu on 2020-06-16
  * <p>
- * 处理大数相加
+ * 2. 两数相加
  */
 public class AddTwoNumbers {
 
@@ -19,23 +19,26 @@ public class AddTwoNumbers {
      * 使用变量来跟踪进位，并从包含最低有效位的表头开始模拟逐位相加的过程
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode p = l1, q = l2, curr = dummyHead;
-        // 变量跟踪进位
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
         int carry = 0;
-        while (p != null || q != null) {
-            int x = (p != null) ? p.val : 0;
-            int y = (q != null) ? q.val : 0;
+        while (l1 != null || l2 != null) {
+            int x = l1 != null ? l1.val : 0;
+            int y = l2 != null ? l2.val : 0;
             int sum = carry + x + y;
             carry = sum / 10;
             curr.next = new ListNode(sum % 10);
             curr = curr.next;
-            if (p != null) p = p.next;
-            if (q != null) q = q.next;
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
         }
-        if (carry > 0) {
+        if (carry != 0) {
             curr.next = new ListNode(carry);
         }
-        return dummyHead.next;
+        return dummy.next;
     }
 }

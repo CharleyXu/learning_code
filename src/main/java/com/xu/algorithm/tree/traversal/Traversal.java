@@ -340,6 +340,29 @@ public class Traversal {
         return res;
     }
 
+    /**
+     * 513. 找树左下角的值
+     * <p>
+     * 给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
+     * <p>
+     * 假设二叉树中至少有一个节点。
+     */
+    public int findBottomLeftValue(TreeNode root) {
+        // bfs遍历
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            root = queue.poll();
+            if (root.right != null) {
+                queue.add(root.right);
+            }
+            if (root.left != null) {
+                queue.add(root.left);
+            }
+        }
+        return root.val;
+    }
+
     @Test
     public void preOrder() {
         System.out.println(preOrder(BaseTree.root));

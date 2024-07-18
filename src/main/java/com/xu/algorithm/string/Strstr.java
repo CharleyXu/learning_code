@@ -1,5 +1,7 @@
 package com.xu.algorithm.string;
 
+import org.junit.Test;
+
 /**
  * Created by CharleyXu on 2023/12/22
  * <p>
@@ -34,6 +36,12 @@ public class Strstr {
             }
         }
         return -1;
+    }
+
+    @Test
+    public void strStrTest() {
+        String haystack = "sadbutsad", needle = "sad";
+        System.out.println(strStr(haystack, needle));
     }
 
 }

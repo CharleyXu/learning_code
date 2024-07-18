@@ -21,6 +21,7 @@ public class SplitListToParts {
      * 时间复杂度 O(N)
      */
     public ListNode[] splitListToParts(ListNode head, int k) {
+        // 链表长度
         int n = 0;
         ListNode cnt = head;
         while (cnt != null) {
