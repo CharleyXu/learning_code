@@ -228,7 +228,7 @@ public class Traversal {
         if (head == null) {
             return;
         }
-        LinkedList<TreeNode> treeNodes = new LinkedList<>();
+        Queue<TreeNode> treeNodes = new LinkedList<>();
         treeNodes.offer(head);
         while (!treeNodes.isEmpty()) {
             TreeNode node = treeNodes.poll();
@@ -319,7 +319,7 @@ public class Traversal {
         if (root == null) {
             return res;
         }
-        LinkedList<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
             int count = queue.size();

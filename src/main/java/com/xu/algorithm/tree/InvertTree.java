@@ -7,7 +7,9 @@ import com.xu.algorithm.stack.Stack;
  * <p>
  * 226
  * <p>
- * 翻转二叉树
+ * LCR 144. 翻转二叉树
+ * <p>
+ * 翻转二叉树, 二叉树的镜像
  */
 public class InvertTree {
 
@@ -25,6 +27,9 @@ public class InvertTree {
     }
 
     public TreeNode invertTree2(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while (!stack.isEmpty()) {

@@ -5,11 +5,12 @@ import org.junit.Test;
 /**
  * @author CharleyXu Created on 2019/3/17.
  * <p>
- * 125. 验证回文串
  */
 public class PalindromeString {
 
     /**
+     * 125. 验证回文串
+     * <p>
      * 筛选加判断，时间复杂度O(｜s｜)，｜s｜是字符串s的长度
      * <p>
      * 或者可以直接在原字符串上直接判断
@@ -37,7 +38,7 @@ public class PalindromeString {
 
     /**
      * 1332 删除回文子序列
-     *
+     * <p>
      * 给你一个字符串 s，它仅由字母 'a' 和 'b' 组成。每一次删除操作都可以从 s 中删除一个回文 子序列。
      * <p>
      * 返回删除给定字符串中所有字符（字符串为空）的最小删除次数
@@ -54,6 +55,33 @@ public class PalindromeString {
             }
         }
         return 1;
+    }
+
+    /**
+     * 409 最长回文串
+     * <p>
+     * 给定一个包含大写字母和小写字母的字符串 s ，返回 通过这些字母构造成的 最长的回文串的长度。
+     * <p>
+     * 在构造过程中，请注意 区分大小写 。比如 "Aa" 不能当做一个回文字符串。
+     * <p>
+     * 示例
+     * <p>
+     * 输入:s = "abccccdd"
+     * 输出:7
+     * 解释:
+     * 我们可以构造的最长的回文串是"dccaccd", 它的长度是 7。
+     */
+    public int longestPalindrome(String s) {
+        int[] arr = new int[128];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            arr[c]++;
+        }
+        int count = 0;
+        for (int i : arr) {
+            count += (i % 2);
+        }
+        return count == 0 ? s.length() : (s.length() - count + 1);
     }
 
     @Test

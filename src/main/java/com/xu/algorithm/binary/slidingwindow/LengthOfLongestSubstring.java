@@ -3,9 +3,7 @@ package com.xu.algorithm.binary.slidingwindow;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author CharleyXu Created on 2019/2/28.
@@ -39,40 +37,10 @@ public class LengthOfLongestSubstring {
         return ans;
     }
 
-    /**
-     * 3. 最长无重复子串
-     * <p>
-     * 给一个字符串，获得没有重复字符的最长子字符的长度
-     *
-     * <p>
-     * 例子： 输入："abcabcbb" 输出：3
-     */
-    public int lengthOfLongestSubstring2(String s) {
-        if (s == null || s.isEmpty()) {
-            return 0;
-        }
-        Set<Character> characterSet = new HashSet<>();
-        int i = 0, j = 0, ans = 0;
-        int length = s.length();
-        while (i < length && j < length) {
-            //窗口的左边是i，右边是j，下列算法将窗口的左右移动，截取出其中一段
-            // try to extend the range [i, j]
-            if (!characterSet.contains(s.charAt(j))) {
-                characterSet.add(s.charAt(j++));
-                ans = Math.max(ans, j - i);
-            } else {
-                characterSet.remove(s.charAt(i++));
-            }
-        }
-        return ans;
-    }
-
     @Test
     public void lengthSubstringTest() {
         String s = "12314sam222";
         int i = lengthOfLongestSubstring(s);
         System.out.println(i);
-        int res = lengthOfLongestSubstring2(s);
-        System.out.println(res);
     }
 }
