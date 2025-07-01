@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author CharleyXu Created on 2019/3/18.
  * <p>
- * leetcode no1
+ * leetcode no1 两数之和
  * <p>
  * 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数
  * <p>
@@ -24,7 +24,7 @@ import java.util.Map;
 public class TwoSum {
 
     public int[] twoSum(int[] num, int target) {
-        Map<Integer, Integer> map = new HashMap(num.length);
+        Map<Integer, Integer> map = new HashMap<>(num.length);
         for (int i = 0, length = num.length; i < length; i++) {
             if (map.containsKey(num[i])) {
                 return new int[]{map.get(num[i]), i};
@@ -35,24 +35,31 @@ public class TwoSum {
     }
 
     /**
+     * 167 两数之和
+     * <p>
+     * 在一个增序的整数数组里找到两个数，使它们的和为给定值。已知有且只有一对解。
+     * <p>
      * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数
      * <p>
-     * 输入: numbers = [2, 7, 11, 15], target = 9
-     * 输出: [1,2]
-     * 解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+     * * 输入是一个数组(numbers)和一个给定值(target)。输出是两个数的位置，从 1 开始计数。 Input: numbers = [2,7,11,15], target = 9
+     * * <p>
+     * * Output: [1,2]
      */
     public int[] twoSum2(int[] numbers, int target) {
-        int i = 0, j = numbers.length - 1;
-        while (i < j) {
-            if (numbers[i] + numbers[j] == target) {
-                return new int[]{i + 1, j + 1};
-            } else if (numbers[i] + numbers[j] < target) {
-                i++;
+        int n = numbers.length;
+        int l = 0, r = n - 1, sum;
+        while (l < r) {
+            sum = numbers[l] + numbers[r];
+            if (sum == target) {
+                break;
+            }
+            if (sum < target) {
+                l++;
             } else {
-                j--;
+                r--;
             }
         }
-        return null;
+        return new int[]{l + 1, r + 1};
     }
 
     @Test
@@ -60,4 +67,5 @@ public class TwoSum {
         int[] ints = twoSum(new int[]{3, 5, 7, 1}, 12);
         Assert.assertArrayEquals(new int[]{1, 2}, ints);
     }
+
 }
