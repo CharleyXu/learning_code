@@ -12,10 +12,11 @@ import java.util.Map;
  */
 public class LRUCache {
 
-    private Map<Integer, LinkedNode> cache = new HashMap<>();
+    private final Map<Integer, LinkedNode> cache = new HashMap<>();
+    private final int capacity;
+    private final LinkedNode head;
+    private final LinkedNode tail;
     private int size;
-    private int capacity;
-    private LinkedNode head, tail;
 
     private LRUCache(int capacity) {
         this.capacity = capacity;
@@ -84,7 +85,7 @@ public class LRUCache {
         return cache.toString();
     }
 
-    class LinkedNode {
+    private static class LinkedNode {
         int key;
         int value;
         LinkedNode prev;
