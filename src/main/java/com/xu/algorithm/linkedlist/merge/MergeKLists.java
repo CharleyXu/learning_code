@@ -58,6 +58,26 @@ public class MergeKLists {
 
     /**
      * 使用小根堆对 1 进行优化，每次 O(logK) 比较 K个指针求 min, 时间复杂度：O(NlogK)
+     * <p>
+     * 初始化阶段：O(K log K)
+     * <p>
+     * 遍历K个链表的头节点：O(K)
+     * 将最多K个节点加入优先队列：每次插入O(log K)，总共O(K log K)
+     * <p>
+     * <p>
+     * 主循环阶段：O(N log K)
+     * <p>
+     * 总共需要处理N个节点（所有链表节点总数）
+     * 每次循环执行：
+     * <p>
+     * poll()操作：O(log K) - 从堆中取出最小元素
+     * add()操作：O(log K) - 向堆中添加新元素
+     * <p>
+     * <p>
+     * 循环N次，每次O(log K)，总共O(N log K)
+     * <p>
+     * <p>
+     * 总时间复杂度：O(K log K) + O(N log K) = O(N log K)
      */
     public ListNode mergeKLists2(ListNode[] lists) {
         // 创建最小堆
